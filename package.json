@@ -1,0 +1,23 @@
+{
+  "name": "tanks",
+  "version": "1.0.0",
+  "description": "Let's blow stuff up.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Code4Community/tanks.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Code4Community/tanks/issues"
+  },
+  "homepage": "https://github.com/Code4Community/tanks#readme",
+  "dependencies": {
+    "phaser": "^3.20.1"
+  }
+}
