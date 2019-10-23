@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="style.css">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
@@ -15,6 +16,28 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="js/acorn_interpreter.js"></script>
   <script src="js/main.js"></script>
+
+  <div class="row">
+    <div class="column">
+      <div class="codeEntry">
+        <div class="textRow">
+          Player 1 code
+          <textarea></textarea>
+        </div>
+        <div class="textRow">
+          Player 2 code
+          <textarea></textarea>
+        </div>
+      </div>
+      <div class="buttonRow">
+        <button class="button button1">► Run Code</button>
+      </div>
+    </div>
+    <div class="column">
+      <canvas id="myCanvas"></canvas>
+      <p>Maybe look into an actual online code editor instead of just textarea</p>
+    </div>
+  </div>
 
   </body>
 </html>

@@ -1,0 +1,71 @@
+// Page setup
+body {
+    font-family: verdana;
+    min-height: 100vh;
+    color: rgb(180, 180, 180);
+    background-color: rgb(44, 44, 44);
+}
+
+div {
+    padding: 5px;
+}
+
+.row {
+    display: flex;
+}
+
+.column {
+    flex: 50%;
+}
+
+// Code input
+.codeEntry {
+    flex-direction: column;
+    display: flex;
+}
+
+.textRow {
+    flex: 50%;
+}
+
+textarea {
+    width: 100%;
+    height: 30vh;
+    min-width: 500px;
+    color: rgb(180, 180, 180);
+    background-color: rgb(44, 44, 44);
+}
+
+// Game
+canvas {
+    width: 500px;
+    height: 500px;
+}
+
+// Button (too fancy)
+.buttonRow {
+    width: 100%;
+    height: 20vh;
+    text-align:center;
+}
+
+.button {
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button1 {
+    background-color: rgb(68, 190, 68);
+    color: white;
+    border-radius: 8px;
+}
