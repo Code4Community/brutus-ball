@@ -18,7 +18,6 @@
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="js/acorn_interpreter.js"></script>
-  <script src="js/main.js"></script>
 
   <script type="text/javascript" src="js/phaser_stuff.js"></script>
   <div class="row">
@@ -26,21 +25,23 @@
       <div class="codeEntry">
         <div class="textRow">
           Player 1 code
-          <textarea></textarea>
+          <textarea id="code1"></textarea>
         </div>
         <div class="textRow">
           Player 2 code
-          <textarea></textarea>
+          <textarea id="code2"></textarea>
         </div>
       </div>
       <div class="buttonRow">
-        <button class="button button1">► Run Code</button>
+        <button id="run-btn" class="button button1">► Run Code</button>
       </div>
     </div>
     <div class="column">
-      <canvas id="myCanvas"></canvas>
+      <div id="thecanvas"></div>
       <p>Maybe look into an actual online code editor instead of just textarea</p>
     </div>
   </div>
+  <script src="js/main.js"></script>
+
   </body>
 </html>

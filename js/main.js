@@ -1,7 +1,14 @@
-var run = function (e) {
+function Game() {
+  this.players = []
+}
+
+function run(e) {
   // This is code that the user entered
-  var p1Code = "move(); log(testCondition()); turn(\"left\"); skip(); throwSnowball(\"left\"); move()"
-  var p2Code = "throwSnowball(\"down\"); turn(\"right\"); move(); move()"
+
+  var p1Code = document.getElementById("code1").value
+  var p2Code = document.getElementById("code2").value
+  //var p1Code = "move(); log(testCondition()); turn(\"left\"); skip(); throwSnowball(\"left\"); move()"
+  //var p2Code = "throwSnowball(\"down\"); turn(\"right\"); move(); move()"
 
   // global-ish variable to pause execution when the player's turn is over
   var stopExecution = false
@@ -88,4 +95,12 @@ var run = function (e) {
 
 }
 
-run();
+(function() {
+  document.getElementById("run-btn").onclick = run;
+  document.getElementById("code1").value =  "move(); log(testCondition()); turn(\"left\"); skip(); throwSnowball(\"left\"); move()"
+  document.getElementById("code2").value = "throwSnowball(\"down\"); turn(\"right\"); move(); move()"
+
+})();
+
+
+//run();

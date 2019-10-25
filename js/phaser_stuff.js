@@ -1,7 +1,8 @@
 // Initialize Phaser Game Object
-var config = 
+var config =
 {
     type: Phaser.AUTO,
+    parent: "thecanvas",
     width: 800,
     height: 600,
     physics: {
@@ -14,7 +15,7 @@ var config =
 };
 var game = new Phaser.Game(config);
 
-// Used to load required images 
+// Used to load required images
 function preload()
 {
     this.load.setBaseURL("localhost:5500");
