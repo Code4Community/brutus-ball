@@ -2,7 +2,16 @@ function Game() {
   this.players = []
 }
 
-function run(e) {
+function Player() {
+  this.x = 0.0;
+  this.y = 0.0;
+  this.health = 5.0;
+  var logo = game.physics.add.image(400, 100, 'logo');
+}
+
+
+
+function runSimulation(scene) {
   // This is code that the user entered
 
   var p1Code = document.getElementById("code1").value
@@ -96,7 +105,6 @@ function run(e) {
 }
 
 (function() {
-  document.getElementById("run-btn").onclick = run;
   document.getElementById("code1").value =  "move(); log(testCondition()); turn(\"left\"); skip(); throwSnowball(\"left\"); move()"
   document.getElementById("code2").value = "throwSnowball(\"down\"); turn(\"right\"); move(); move()"
 

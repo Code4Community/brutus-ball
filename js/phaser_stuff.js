@@ -7,10 +7,13 @@ var config =
     height: 600,
     physics: {
         default: 'arcade',
+        arcade: {
+          gravity: {y: 500}
+        }
     },
     scene: {
         preload: preload,
-        create: create
+        create: create,
     }
 };
 var game = new Phaser.Game(config);
@@ -25,8 +28,48 @@ function preload()
 // Initialization Code Run On Game Start
 function create()
 {
-    this.add.image(100, 100, "player");
+  var logo = this.physics.add.image(400, 100, 'logo');
+  var particles = this.add.particles('red');
+
+  var emitter = particles.createEmitter({
+    speed: 100,
+    scale: { start: 1, end: 0 },
+    blendMode: 'ADD'
+});
+logo.setVelocity(100, 200);
+logo.setBounce(1, 1);
+logo.setCollideWorldBounds(true);
+
+emitter.startFollow(logo);
+
+var g = this;
+document.getElementById("run-btn").onclick = function () {
+  var logo = g.physics.add.image(400, 100, 'logo');
+
+  g.physics.moveTo(logo, 100, 10, 0.1, 5000);
+
+  emitter.startFollow(logo);
+  runSimulation();
+};
+
 }
+
+function addTank() {
+  var logo = this.physics.add.image(400, 100, 'logo');
+  var particles = this.add.particles('red');
+
+  var emitter = particles.createEmitter({
+    speed: 100,
+    scale: { start: 1, end: 0 },
+    blendMode: 'ADD'
+});
+logo.setVelocity(100, 200);
+logo.setBounce(1, 1);
+logo.setCollideWorldBounds(true);
+
+emitter.startFollow(logo);
+}
+
 
 // Update Code (Runs Every Frame)
 function update()
