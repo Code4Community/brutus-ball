@@ -8,7 +8,7 @@ var config =
     physics: {
         default: 'arcade',
         arcade: {
-          gravity: {y: 500}
+          // gravity: {y: 500}
         }
     },
     scene: {
@@ -35,39 +35,36 @@ function create()
     speed: 100,
     scale: { start: 1, end: 0 },
     blendMode: 'ADD'
-});
-logo.setVelocity(100, 200);
-logo.setBounce(1, 1);
-logo.setCollideWorldBounds(true);
-
-emitter.startFollow(logo);
-
-var g = this;
-document.getElementById("run-btn").onclick = function () {
-  var logo = g.physics.add.image(400, 100, 'logo');
-
-  g.physics.moveTo(logo, 100, 10, 0.1, 5000);
+  });
+  logo.setVelocity(100, 200);
+  logo.setBounce(1, 1);
+  logo.setCollideWorldBounds(true);
 
   emitter.startFollow(logo);
-  runSimulation();
-};
+
+  document.getElementById("run-btn").onclick = addTank(this)
 
 }
 
-function addTank() {
-  var logo = this.physics.add.image(400, 100, 'logo');
-  var particles = this.add.particles('red');
+function addTank(g) {
+  return function (e) {
+    var logo = g.physics.add.image(400, 100, 'logo');
+    tweenA = g.tweens.add({targets: [logo],  props: { x: 100, y: 100}, duration: 2000, ease: "Quart.easeOut"});
+    var particles = g.add.particles('red');
+    var emitter = particles.createEmitter({
+      speed: 100,
+      scale: { start: 1, end: 0 },
+      blendMode: 'ADD'
+    });
+    emitter.startFollow(logo);
+    runSimulation();
 
-  var emitter = particles.createEmitter({
-    speed: 100,
-    scale: { start: 1, end: 0 },
-    blendMode: 'ADD'
-});
-logo.setVelocity(100, 200);
-logo.setBounce(1, 1);
-logo.setCollideWorldBounds(true);
+    // logo.setVelocity(100, 200);
+    // logo.setBounce(1, 1);
+    // logo.setCollideWorldBounds(true);
 
-emitter.startFollow(logo);
+    emitter.startFollow(logo);
+  }
 }
 
 
