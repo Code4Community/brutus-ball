@@ -42,28 +42,33 @@ function create()
 
   emitter.startFollow(logo);
 
-  document.getElementById("run-btn").onclick = addTank(this)
+  document.getElementById("run-btn").onclick = runS(this)
 
 }
 
-function addTank(g) {
+function runS(g) {
   return function (e) {
-    var logo = g.physics.add.image(400, 100, 'logo');
-    tweenA = g.tweens.add({targets: [logo],  props: { x: 100, y: 100}, duration: 2000, ease: "Quart.easeOut"});
-    var particles = g.add.particles('red');
-    var emitter = particles.createEmitter({
-      speed: 100,
-      scale: { start: 1, end: 0 },
-      blendMode: 'ADD'
-    });
-    emitter.startFollow(logo);
+    var p1 = new Player(g)
+    var p2 = new Player(g);
+
+    p2.move()
+    p2.move();
+    //var logo = g.physics.add.image(400, 100, 'logo');
+    // tweenA = g.tweens.add({targets: [logo],  props: { x: 100, y: 100}, duration: 2000, ease: "Quart.easeOut"});
+    // var particles = g.add.particles('red');
+    // var emitter = particles.createEmitter({
+    //   speed: 100,
+    //   scale: { start: 1, end: 0 },
+    //   blendMode: 'ADD'
+    // });
+    // emitter.startFollow(logo);
     runSimulation();
 
     // logo.setVelocity(100, 200);
     // logo.setBounce(1, 1);
     // logo.setCollideWorldBounds(true);
 
-    emitter.startFollow(logo);
+    //emitter.startFollow(logo);
   }
 }
 

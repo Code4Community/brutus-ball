@@ -2,11 +2,16 @@ function Game() {
   this.players = []
 }
 
-function Player() {
-  this.x = 0.0;
-  this.y = 0.0;
+function Player(game) {
+  this.x = 100.0;
+  this.y = 100.0;
+  this.game = game
   this.health = 5.0;
-  var logo = game.physics.add.image(400, 100, 'logo');
+  this.sprite = game.physics.add.image(400, 100, 'logo');
+  this.move = function (x) {
+    this.x += 20
+    tweenA = this.game.tweens.add({targets: [this.sprite],  props: { x: this.x, y: this.y}, duration: 2000, ease: "Quart.easeOut"});
+  }
 }
 
 
