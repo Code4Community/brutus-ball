@@ -21,38 +21,34 @@ var game = new Phaser.Game(config);
 // Used to load required images
 function preload()
 {
-    this.load.setBaseURL("localhost:5500");
-    this.load.image("player", "./images/player.png");
+    this.load.image("player", "/images/kid_friendly_player.png");
 }
 
 // Initialization Code Run On Game Start
 function create()
 {
-  var logo = this.physics.add.image(400, 100, 'logo');
-  var particles = this.add.particles('red');
+    /*
+    var logo = this.physics.add.image(400, 100, 'logo');
+    var particles = this.add.particles('red');
 
-  var emitter = particles.createEmitter({
-    speed: 100,
-    scale: { start: 1, end: 0 },
-    blendMode: 'ADD'
-  });
-  logo.setVelocity(100, 200);
-  logo.setBounce(1, 1);
-  logo.setCollideWorldBounds(true);
+    var emitter = particles.createEmitter({
+        speed: 100,
+        scale: { start: 1, end: 0 },
+        blendMode: 'ADD'
+    });
+    logo.setVelocity(100, 200);
+    logo.setBounce(1, 1);
+    logo.setCollideWorldBounds(true);
 
-  emitter.startFollow(logo);
+    emitter.startFollow(logo);
+    */
 
-  document.getElementById("run-btn").onclick = runS(this)
-
+    document.getElementById("run-btn").onclick = runS(this)
+    makeGame(this);
 }
 
 function runS(g) {
   return function (e) {
-    var p1 = new Player(g)
-    var p2 = new Player(g);
-
-    p2.move()
-    p2.move();
     //var logo = g.physics.add.image(400, 100, 'logo');
     // tweenA = g.tweens.add({targets: [logo],  props: { x: 100, y: 100}, duration: 2000, ease: "Quart.easeOut"});
     // var particles = g.add.particles('red');
@@ -62,7 +58,7 @@ function runS(g) {
     //   blendMode: 'ADD'
     // });
     // emitter.startFollow(logo);
-    runSimulation();
+    runSimulation(g);
 
     // logo.setVelocity(100, 200);
     // logo.setBounce(1, 1);
