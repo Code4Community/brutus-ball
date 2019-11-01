@@ -38,7 +38,22 @@ function Player(game, x, y, name) {
   // Moves the tank a little bit in the current direction 
   this.move = function (x) {
     this.x += 20
-    tweenA = this.game.tweens.add({targets: [this.sprite],  props: { x: this.x, y: this.y}, duration: 2000, ease: "Quart.easeOut"});
+    tweenA = this.game.tweens.add({targets: [this.sprite],  props: { x: this.x, y: this.y}, duration: 500, ease: "Quart.easeOut"});
+  }
+
+
+  this.shoot = function (direction) {
+    var particles = this.game.add.particles('projectile');
+
+    var emitter = particles.createEmitter({
+        speed: 100,
+        scale: { start: 1, end: 0 },
+        blendMode: 'ADD',
+        tint: 0x666666,
+        x: this.x,
+        y: this.y,
+        //speedX: 2.0
+    });
   }
 
   // Resets all the player stuff 
@@ -54,8 +69,8 @@ function Player(game, x, y, name) {
 
 var game = new Game()
 function makeGame(scene) {
-  game.players.push(new Player(scene, 100.0, 250.0, "Player 1"))
-  game.players.push(new Player(scene, 500.0, 250.0, "Player 2"))
+  game.players.push(new Player(scene, 100.0, 275.0, "Player 1"))
+  game.players.push(new Player(scene, 500.0, 275.0, "Player 2"))
 } 
 
 function runSimulation(scene) {
@@ -97,6 +112,7 @@ function runSimulation(scene) {
       // This is the throwSnowball function! Set stopExecution to true!
       var throwSnowballW = function (direction) {
         console.log("Player "+player.name+" throwSnowball "+direction+".");
+        player.shoot()
         game.stopExecution = true
       }
 

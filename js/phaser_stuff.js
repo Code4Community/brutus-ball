@@ -72,21 +72,4 @@ function runS(g) {
 // Update Code (Runs Every Frame)
 function update()
 {
-    /*
-    // Move Left
-    if (cursors.left.isDown && !cursors.right.isDown)
-        player.setVelocityX(-config.player_speed);
-
-    // Move Right
-    if (cursors.right.isDown && !cursors.left.isDown)
-        player.setVelocityX(config.player_speed);
-
-    // Move Up
-    if (cursors.up.isDown && !cursors.down.isDown)
-        player.setVelocityY(-config.player_speed);
-
-    // Move Down
-    if (cursors.down.isDown && !cursors.up.isDown)
-        player.setVelocityY(config.player_speed);
-    */
 }
