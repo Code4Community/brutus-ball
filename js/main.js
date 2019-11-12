@@ -43,17 +43,22 @@ function Player(game, x, y, name) {
 
 
   this.shoot = function (direction) {
+    var projectile = this.game.physics.add.image(100, 100, 'snowball');
+    projectile.x = this.x
+    projectile.y = this.y
+    projectile.setVelocity(100, 0)
+    
     var particles = this.game.add.particles('projectile');
 
     var emitter = particles.createEmitter({
         speed: 100,
         scale: { start: 1, end: 0 },
         blendMode: 'ADD',
-        tint: 0x666666,
-        x: this.x,
-        y: this.y,
+        tint: 0x666666
         //speedX: 2.0
     });
+
+    emitter.startFollow(projectile)
   }
 
   // Resets all the player stuff 
@@ -154,36 +159,7 @@ function runSimulation(scene) {
 
 
 
-
-  // // Game loop!
-  // var i1 = true;
-  // var i2 = true;
-  // while (i1 || i2) {
-  //   console.log("Player 1's turn...")
-  //   stopExecution = false
-  //   while (i1 && !stopExecution) {
-  //     i1 = interpreter1.step() // returns false when script ends
-  //   }
-  //   console.log("Player 2's turn...")
-  //   stopExecution = false
-  //   while (i2 && !stopExecution) {
-  //     i2 = interpreter2.step() // returns false when script ends
-  //   }
-  // }
-  // console.log("Done")
-
   game.turnTimer = setInterval(game.processNextTurn, 500);
-
-
-  // var moreToDo = true
-  // while (moreToDo) {
-  //   moreToDo = false
-  //   for (p of game.players) {
-  //     if (processTurn(p)) {
-  //       moreToDo = true
-  //     }
-  //   }
-  // }
 }
 
 (function() {
