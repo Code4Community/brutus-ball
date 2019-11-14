@@ -37,7 +37,7 @@ function Player(game, x, y, name) {
 
   // Moves the tank a little bit in the current direction 
   this.move = function (x) {
-    this.x += 20
+    this.x += 50
     tweenA = this.game.tweens.add({targets: [this.sprite],  props: { x: this.x, y: this.y}, duration: 500, ease: "Quart.easeOut"});
   }
 
@@ -73,7 +73,16 @@ function Player(game, x, y, name) {
 }
 
 var game = new Game()
-function makeGame(scene) {
+function makeGame(scene, c1, c2) {
+  game.code1 = c1
+  game.code2 = c2
+  game.code1.setValue(js_beautify("move(); log(testCondition()); turn(\"left\"); skip(); throwSnowball(\"left\"); move()"))
+  game.code2.setValue(js_beautify("throwSnowball(\"down\"); turn(\"right\"); move(); move()"))
+
+
+
+
+
   game.players.push(new Player(scene, 100.0, 275.0, "Player 1"))
   game.players.push(new Player(scene, 500.0, 275.0, "Player 2"))
 } 
@@ -81,8 +90,8 @@ function makeGame(scene) {
 function runSimulation(scene) {
   // This is code that the user entered
 
-  var p1Code = document.getElementById("code1").value
-  var p2Code = document.getElementById("code2").value
+  var p1Code = game.code1.getValue()
+  var p2Code = game.code2.getValue()
 
   for (player of game.players) {
     player.clear()
@@ -163,18 +172,18 @@ function runSimulation(scene) {
 }
 
 (function() {
-  document.getElementById("code1").value =  "move(); log(testCondition()); turn(\"left\"); skip(); throwSnowball(\"left\"); move()"
-  document.getElementById("code2").value = "throwSnowball(\"down\"); turn(\"right\"); move(); move()"
+  // document.getElementById("code1").value =  "move(); log(testCondition()); turn(\"left\"); skip(); throwSnowball(\"left\"); move()"
+  // document.getElementById("code2").value = "throwSnowball(\"down\"); turn(\"right\"); move(); move()"
 
 })();
 
-if (sessionStorage["code1"]) {
-    document.getElementById("code1").value = sessionStorage["code1"];
-}
+// if (sessionStorage["code1"]) {
+//     document.getElementById("code1").value = sessionStorage["code1"];
+// }
 
-if (sessionStorage["code2"]) {
-    document.getElementById("code2").value = sessionStorage["code2"];
-}
+// if (sessionStorage["code2"]) {
+//     document.getElementById("code2").value = sessionStorage["code2"];
+// }
 
 document.getElementById("save1").addEventListener("click", function () {
     var user = document.getElementById("code1").value ;

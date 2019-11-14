@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
   <title>Tank game</title>
   <link rel="stylesheet" href="./styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/phaser@3.20.1/dist/phaser-arcade-physics.min.js"></script>
+  <link rel="stylesheet" href="codemirror.css">
 
 </head>
 <body>
@@ -18,6 +18,9 @@
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="js/acorn_interpreter.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.20.1/dist/phaser-arcade-physics.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.10.2/beautify.js"></script>
+
 
   <script type="text/javascript" src="js/phaser_stuff.js"></script>
 
@@ -26,12 +29,12 @@
       <div class="codeEntry">
         <div class="textRow">
           Player 1 code
-          <textarea id="code1"></textarea>
+          <div id="code1"></div>
           <button id="save1">Save</button>
         </div>
         <div class="textRow">
           Player 2 code
-          <textarea id="code2"></textarea>
+          <div id="code2"></div>
           <button id="save2">Save</button>
         </div>
       </div>
@@ -44,6 +47,8 @@
     </div>
   </div>
   <script src="js/main.js"></script>
+  <script src="js/codemirror.js"></script>
+  <script src="js/mode/javascript.js"></script>
 
   </body>
 </html>

@@ -44,7 +44,19 @@ function create()
     */
 
     document.getElementById("run-btn").onclick = runS(this)
-    makeGame(this);
+
+    var code1 = CodeMirror(document.getElementById("code1"), {
+      lineNumbers: true,
+      mode: "javascript"
+    });
+
+    var code2 = CodeMirror(document.getElementById("code2"), {
+      lineNumbers: true,
+      mode: "javascript"
+    });
+
+    makeGame(this, code1, code2);
+
 }
 
 function runS(g) {
