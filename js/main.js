@@ -4,6 +4,8 @@ function Game(p) {
   this.stopExecution = false // used as a flag to stop execution
   this.turnTimer = null
   this.didSomethingThisIteration = false
+  this.projectileGroup = null
+  this.playerGroup = null
 
   g = this
   this.processNextTurn = function () {
@@ -22,15 +24,16 @@ function Game(p) {
   }
 }
 
-function Player(game, x, y, name) {
+function Player(phaserGame, x, y, name) {
   this.x = x;
   this.y = y;
-  this.game = game
-  this.health = 5.0;
-  this.sprite = game.physics.add.image(400, 100, 'player');
+  this.game = phaserGame
+  this.health = 3.0;
+  this.sprite = phaserGame.physics.add.image(400, 100, 'player');
   this.sprite.scale = .3;
   this.sprite.x = x
   this.sprite.y = y
+  this.sprite.c4cPlayer = this
   this.name = name
   this.interpreter = null
   this.codeExecuting = true
@@ -46,11 +49,15 @@ function Player(game, x, y, name) {
     var projectile = this.game.physics.add.image(100, 100, 'snowball');
     projectile.x = this.x
     projectile.y = this.y
-    projectile.setVelocity(100, 0)
-    
+    projectile.setVelocity(1500, 0)
+    projectile.c4cSource = this
+    //game.projectileGroup.add(projectile)
+    this.game.physics.add.overlap(game.playerGroup, projectile, collisionHandler, collisionChecker);
+
+
     var particles = this.game.add.particles('projectile');
 
-    var emitter = particles.createEmitter({
+    this.projectileEmitter = particles.createEmitter({
         speed: 100,
         scale: { start: 1, end: 0 },
         blendMode: 'ADD',
@@ -58,33 +65,69 @@ function Player(game, x, y, name) {
         //speedX: 2.0
     });
 
-    emitter.startFollow(projectile)
+    this.projectileEmitter.startFollow(projectile)
   }
 
   // Resets all the player stuff 
   this.clear = function() {
     this.x = x
     this.y = y
+    this.health = 3.0
     this.sprite.x = x
     this.sprite.y = y
+    this.sprite.visible = true
+    this.sprite.body.checkCollision.none = false
     this.codeExecuting = true
     this.interpreter = null // to avoid hard to find bugs
+  }
+
+  this.killIfNecessary = function() {
+    if (this.health <= 0.0) {
+      this.sprite.body.checkCollision.none = true
+      this.sprite.visible = false
+    }
   }
 }
 
 var game = new Game()
+
+function collisionHandler(obj1, obj2) {
+  console.log("COLLISION")
+  if (obj2.c4cPlayer != obj1.c4cSource) {
+    obj2.c4cPlayer.health -= 1.0
+    obj2.c4cPlayer.killIfNecessary()
+    obj1.destroy()
+    obj1.c4cSource.projectileEmitter.stop()
+  }
+
+}
+
+function collisionChecker(obj1, obj2) {
+  //console.log("COLLISION CHECK "+obj2.c4cPlayer.name)
+  if (obj2.c4cPlayer != obj1.c4cSource) {
+    return true
+  }
+  return false
+
+}
+
 function makeGame(scene, c1, c2) {
   game.code1 = c1
   game.code2 = c2
   game.code1.setValue(js_beautify("move(); log(testCondition()); turn(\"left\"); skip(); throwSnowball(\"left\"); move()"))
   game.code2.setValue(js_beautify("throwSnowball(\"down\"); turn(\"right\"); move(); move()"))
 
-
-
-
+  game.projectileGroup = scene.physics.add.group()
+  game.playerGroup = scene.physics.add.group()
 
   game.players.push(new Player(scene, 100.0, 275.0, "Player 1"))
   game.players.push(new Player(scene, 500.0, 275.0, "Player 2"))
+  
+  game.playerGroup.add(game.players[0].sprite)
+  game.playerGroup.add(game.players[1].sprite)
+
+  //scene.physics.add.overlap(game.playerGroup, game.projectileGroup, collisionHandler, collisionChecker);
+
 } 
 
 function runSimulation(scene) {
@@ -168,7 +211,7 @@ function runSimulation(scene) {
 
 
 
-  game.turnTimer = setInterval(game.processNextTurn, 500);
+  game.turnTimer = setInterval(game.processNextTurn, 750);
 }
 
 (function() {
