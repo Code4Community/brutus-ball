@@ -81,6 +81,7 @@ function Player(phaserGame, x, y, name) {
     this.sprite.y = y
     this.sprite.visible = true
     this.sprite.body.checkCollision.none = false
+    this.sprite.setRotation(0)
     this.codeExecuting = true
     this.interpreter = null // to avoid hard to find bugs
   }
@@ -151,7 +152,7 @@ function collisionChecker(obj1, obj2) {
 function makeGame(scene, c1, c2) {
   game.code1 = c1
   game.code2 = c2
-  game.code1.setValue(js_beautify("move(\"right\"); log(testCondition());  skip(); throwSnowball(\"right\"); move(\"up\")"))
+  game.code1.setValue(js_beautify("move(\"right\"); log(testCondition());  skip(); throwSnowball(\"right\"); move(\"up\"); move(\"down\"); for (var x=0; x<5; x++) {throwSnowball(\"right\")}"))
   game.code2.setValue(js_beautify("throwSnowball(\"down\"); move(\"up\"); move(\"down\")"))
 
   game.projectileGroup = scene.physics.add.group()
