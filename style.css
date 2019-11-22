@@ -65,6 +65,7 @@ canvas {
   background-color: rgb(43, 116, 211);
   padding: 4px 8px;
   font-size: 12px;
+  float: right;
 }
 
 .runButton {
