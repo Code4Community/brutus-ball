@@ -39,8 +39,11 @@ function Player(phaserGame, x, y, name) {
   this.codeExecuting = true
 
   // Moves the tank a little bit in the current direction 
-  this.move = function (x) {
-    this.x += 50
+  this.move = function (direction) {
+    var dirArr = getDirection(direction)
+    this.x += dirArr[0] * 50
+    this.y += dirArr[1] * 50
+    this.faceDirection(direction)
     tweenA = this.game.tweens.add({targets: [this.sprite],  props: { x: this.x, y: this.y}, duration: 500, ease: "Quart.easeOut"});
   }
 
@@ -49,7 +52,9 @@ function Player(phaserGame, x, y, name) {
     var projectile = this.game.physics.add.image(100, 100, 'snowball');
     projectile.x = this.x
     projectile.y = this.y
-    projectile.setVelocity(1500, 0)
+    var dirArr = getDirection(direction)
+    this.faceDirection(direction)
+    projectile.setVelocity(dirArr[0]*1500, dirArr[1]*1500)
     projectile.c4cSource = this
     //game.projectileGroup.add(projectile)
     this.game.physics.add.overlap(game.playerGroup, projectile, collisionHandler, collisionChecker);
@@ -87,6 +92,39 @@ function Player(phaserGame, x, y, name) {
       this.sprite.visible = false
     }
   }
+
+  this.faceDirection = function(dirString) {
+    switch (dirString) {
+      case "left":
+        this.sprite.setRotation(Math.PI)
+        break
+      case "right":
+        this.sprite.setRotation(0)
+        break
+      case "down":
+        this.sprite.setRotation(Math.PI / 2.0)
+        break
+      case "up":
+        this.sprite.setRotation(3.0 * Math.PI / 2.0)
+        break
+    }
+  }
+}
+
+function getDirection(dirString) {
+  // [Math.sqrt(2.0)/2.0, Math.sqrt(2.0)/2.0]
+  switch (dirString) {
+    case "left":
+      return [-1.0, 0.0]
+    case "right":
+      return [1.0, 0.0]
+    case "down":
+      return [0.0, 1.0]
+    case "up":
+      return [0.0, -1.0]
+  }
+  console.log("Invalid direction: "+dirString)
+  return [0.0, 0.0]
 }
 
 var game = new Game()
@@ -114,8 +152,8 @@ function collisionChecker(obj1, obj2) {
 function makeGame(scene, c1, c2) {
   game.code1 = c1
   game.code2 = c2
-  game.code1.setValue(js_beautify("move(); log(testCondition()); turn(\"left\"); skip(); throwSnowball(\"left\"); move()"))
-  game.code2.setValue(js_beautify("throwSnowball(\"down\"); turn(\"right\"); move(); move()"))
+  game.code1.setValue(js_beautify("move(\"right\"); log(testCondition());  skip(); throwSnowball(\"right\"); move(\"up\")"))
+  game.code2.setValue(js_beautify("throwSnowball(\"down\"); move(\"up\"); move(\"down\")"))
 
   game.projectileGroup = scene.physics.add.group()
   game.playerGroup = scene.physics.add.group()
@@ -160,16 +198,16 @@ function runSimulation(scene) {
       }
 
       // This is the move function! Set stopExecution to true!
-      var moveW = function () {
-        console.log("Player "+player.name+" move function executed.");
-        player.move();
+      var moveW = function (direction) {
+        console.log("Player "+player.name+" move function executed in direction "+direction);
+        player.move(direction);
         game.stopExecution = true
       }
 
       // This is the throwSnowball function! Set stopExecution to true!
       var throwSnowballW = function (direction) {
         console.log("Player "+player.name+" throwSnowball "+direction+".");
-        player.shoot()
+        player.shoot(direction)
         game.stopExecution = true
       }
 
