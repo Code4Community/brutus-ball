@@ -82,4 +82,8 @@ canvas {
   margin-right: auto;
   display: block;
 }
+
+.column {
+  max-width: calc(100% - 600px);
+}
 /*# sourceMappingURL=style.css.map */
