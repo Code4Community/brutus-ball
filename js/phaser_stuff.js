@@ -47,7 +47,7 @@ function create()
 
     var code1 = CodeMirror(document.getElementById("code1"), {
       lineNumbers: true,
-      mode: "javascript"
+      mode: "javascript", 
     });
 
     var code2 = CodeMirror(document.getElementById("code2"), {
@@ -55,8 +55,20 @@ function create()
       mode: "javascript"
     });
 
-    makeGame(this, code1, code2);
+    // When the text field changes, mirror it to the end object 
+    code1.on("change", () => {
+      let user = document.getElementById("code1").value;
+      sessionStorage.setItem("code1", user);
+      console.log("Player 1 Code Saved!");
+    });
 
+    code2.on("change", () => {
+      let user = document.getElementById("code2").value;
+      sessionStorage.setItem("code2", user);
+      console.log("Player 2 Code Saved!");
+    });
+
+    makeGame(this, code1, code2);
 }
 
 function runS(g) {
