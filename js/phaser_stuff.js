@@ -5,6 +5,7 @@ var config =
     parent: "thecanvas",
     width: 800,
     height: 600,
+    
     physics: {
         default: 'arcade',
         arcade: {
@@ -57,13 +58,13 @@ function create()
 
     // When the text field changes, mirror it to the end object 
     code1.on("change", () => {
-      let user = document.getElementById("code1").value;
+      let user = game.code1.getValue()
       sessionStorage.setItem("code1", user);
       console.log("Player 1 Code Saved!");
     });
 
     code2.on("change", () => {
-      let user = document.getElementById("code2").value;
+      let user = game.code2.getValue()
       sessionStorage.setItem("code2", user);
       console.log("Player 2 Code Saved!");
     });

@@ -150,10 +150,18 @@ function collisionChecker(obj1, obj2) {
 }
 
 function makeGame(scene, c1, c2) {
+  var source1 = "move(\"right\"); log(testCondition());  skip(); throwSnowball(\"right\"); move(\"up\"); move(\"down\"); for (var x=0; x<5; x++) {throwSnowball(\"right\")}"
+  var source2 = "throwSnowball(\"down\"); move(\"up\"); move(\"down\")"
+  if (sessionStorage.getItem("code1")) {
+    source1 = sessionStorage.getItem("code1")
+  }
+  if (sessionStorage.getItem("code2")) {
+    source2 = sessionStorage.getItem("code2")
+  }
   game.code1 = c1
   game.code2 = c2
-  game.code1.setValue(js_beautify("move(\"right\"); log(testCondition());  skip(); throwSnowball(\"right\"); move(\"up\"); move(\"down\"); for (var x=0; x<5; x++) {throwSnowball(\"right\")}"))
-  game.code2.setValue(js_beautify("throwSnowball(\"down\"); move(\"up\"); move(\"down\")"))
+  game.code1.setValue(js_beautify(source1))
+  game.code2.setValue(js_beautify(source2))
 
   game.projectileGroup = scene.physics.add.group()
   game.playerGroup = scene.physics.add.group()
@@ -254,14 +262,6 @@ function runSimulation(scene) {
   // document.getElementById("code2").value = "throwSnowball(\"down\"); turn(\"right\"); move(); move()"
 
 })();
-
-// if (sessionStorage["code1"]) {
-//     document.getElementById("code1").value = sessionStorage["code1"];
-// }
-
-// if (sessionStorage["code2"]) {
-//     document.getElementById("code2").value = sessionStorage["code2"];
-// }
 
 function processTurn(player) {
   if (!player.codeExecuting) {
