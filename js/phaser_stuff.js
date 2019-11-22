@@ -28,33 +28,19 @@ function preload()
 // Initialization Code Run On Game Start
 function create()
 {
-    /*
-    var logo = this.physics.add.image(400, 100, 'logo');
-    var particles = this.add.particles('red');
+  this.cameras.main.backgroundColor.setTo(200, 200, 200);
 
-    var emitter = particles.createEmitter({
-        speed: 100,
-        scale: { start: 1, end: 0 },
-        blendMode: 'ADD'
-    });
-    logo.setVelocity(100, 200);
-    logo.setBounce(1, 1);
-    logo.setCollideWorldBounds(true);
+  document.getElementById("run-btn").onclick = runS(this)
 
-    emitter.startFollow(logo);
-    */
+  var code1 = CodeMirror(document.getElementById("code1"), {
+    lineNumbers: true,
+    mode: "javascript", 
+  });
 
-    document.getElementById("run-btn").onclick = runS(this)
-
-    var code1 = CodeMirror(document.getElementById("code1"), {
-      lineNumbers: true,
-      mode: "javascript", 
-    });
-
-    var code2 = CodeMirror(document.getElementById("code2"), {
-      lineNumbers: true,
-      mode: "javascript"
-    });
+  var code2 = CodeMirror(document.getElementById("code2"), {
+    lineNumbers: true,
+    mode: "javascript"
+  });
 
     // When the text field changes, mirror it to the end object 
     code1.on("change", () => {
