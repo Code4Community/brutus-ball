@@ -62,9 +62,9 @@ canvas {
 }
 
 .saveButton {
-  background-color: rgb(43, 116, 211);
+  background-color: #2b74d3;
   padding: 4px 8px;
-  font-size: 12px;
+  font-size: 20px;
   float: right;
 }
 

@@ -47,7 +47,6 @@ function Player(phaserGame, x, y, name) {
     tweenA = this.game.tweens.add({targets: [this.sprite],  props: { x: this.x, y: this.y}, duration: 500, ease: "Quart.easeOut"});
   }
 
-
   this.shoot = function (direction) {
     var projectile = this.game.physics.add.image(100, 100, 'snowball');
     projectile.x = this.x
@@ -241,14 +240,11 @@ function runSimulation(scene) {
   }
 
   // Make an interpreter for each player
-
   var interpreter1 = new Interpreter(p1Code, initFunc(game.players[0]));
   game.players[0].interpreter = interpreter1;
   var interpreter2 = new Interpreter(p2Code, initFunc(game.players[1]));
   game.players[1].interpreter = interpreter2;
-
-
-
+  
   game.turnTimer = setInterval(game.processNextTurn, 750);
 }
 
@@ -265,18 +261,6 @@ function runSimulation(scene) {
 // if (sessionStorage["code2"]) {
 //     document.getElementById("code2").value = sessionStorage["code2"];
 // }
-
-document.getElementById("save1").addEventListener("click", function () {
-    var user = document.getElementById("code1").value ;
-    sessionStorage.setItem("code1", user) ;
-    console.log("Player 1 code saved")
-} , false);
-
-document.getElementById("save2").addEventListener("click", function () {
-    var user = document.getElementById("code2").value ;
-    sessionStorage.setItem("code2", user) ;
-    console.log("Player 2 code saved")
-} , false);
 
 function processTurn(player) {
   if (!player.codeExecuting) {
@@ -296,6 +280,5 @@ function processTurn(player) {
   player.codeExecuting = i1
   return player.codeExecuting
 }
-
 
 //run();
