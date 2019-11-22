@@ -1,8 +1,8 @@
 body {
   font-family: verdana;
   min-height: 100vh;
-  color: #b4b4b4;
-  background-color: #2c2c2c;
+  color: black;
+  background-color: lightgray;
 }
 
 .row {
@@ -53,30 +53,32 @@ canvas {
 }
 
 .button {
-  background-color: red;
-  border: none;
   color: white;
-  padding: 16px 32px;
+  border: none;
   text-align: center;
-  text-decoration: none;
   display: inline-block;
-  font-size: 16px;
   margin: 4px 2px;
-  -webkit-transition-duration: 0.4s;
-  /* Safari */
-  transition-duration: 0.4s;
-  cursor: pointer;
+  border-radius: 8px;
 }
 
-.button1 {
+.saveButton {
+  background-color: rgb(43, 116, 211);
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+.runButton {
   background-color: #44be44;
-  color: white;
-  border-radius: 8px;
+  padding: 16px 32px;
+  font-size: 16px;
 }
 
 canvas {
   width: 600px;
   height: 600px;
   border: 1px black solid;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 /*# sourceMappingURL=style.css.map */
