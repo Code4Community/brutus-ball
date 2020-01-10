@@ -23,6 +23,7 @@ var game = new Phaser.Game(config);
 function preload()
 {
     this.load.image("player", "/images/kid_friendly_player.png");
+    this.load.image("snowball", "/images/football.gif");
 }
 
 // Initialization Code Run On Game Start
