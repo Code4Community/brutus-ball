@@ -89,7 +89,7 @@ function Player(phaserGame, x, y, name) {
   this.killIfNecessary = function() {
     if (this.health <= 0.0) {
       this.sprite.body.checkCollision.none = true
-      this.sprite.visible = false
+      this.sprite.visible = false    
     }
   }
 

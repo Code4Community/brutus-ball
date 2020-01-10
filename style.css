@@ -11,10 +11,16 @@ body {
   display: flex;
 }
 
-.column {
-  -webkit-box-flex: 50%;
-      -ms-flex: 50%;
-          flex: 50%;
+.leftColumn {
+  -webkit-box-flex: 60%;
+      -ms-flex: 60%;
+          flex: 60%;
+}
+
+.rightColumn {
+  -webkit-box-flex: 40%;
+      -ms-flex: 40%;
+          flex: 40%;
 }
 
 .codeEntry {
@@ -34,16 +40,12 @@ body {
 }
 
 textarea {
-  width: 100%;
+  width: calc(100% - 20px);
+  margin-left: 10px;
   height: 30vh;
   min-width: 500px;
   color: #b4b4b4;
   background-color: #2c2c2c;
-}
-
-canvas {
-  width: 500px;
-  height: 500px;
 }
 
 .buttonRow {
@@ -77,9 +79,8 @@ canvas {
 canvas {
   width: 600px;
   height: 600px;
-  border: 1px black solid;
-  margin-left: auto;
-  margin-right: auto;
+  border: 10px black solid;
+  margin: 35px auto 0px auto;
   display: block;
 }
 /*# sourceMappingURL=style.css.map */
