@@ -22,6 +22,27 @@ function Game(p) {
       g.didSomethingThisIteration = false
     }
   }
+
+  this.checkEndgame = function () {
+    var winner = -1;
+    for (var idx = 0; idx < this.players.length; idx++) {
+      if (this.players[idx].health > 0) {
+        if (winner != -1) return;
+        winner = idx;
+      }
+    }
+    // There was a winner, or no winner
+    if (winner == -1) {
+      console.log("TIE")
+      alert("TIE");
+    } else {
+      console.log("PLAYER "+winner+" WON");
+      alert("PLAYER "+winner+" WON")
+    }
+    // Stop interpreting, reset for next time.
+    window.clearInterval(g.turnTimer);
+    g.didSomethingThisIteration = false;
+  }
 }
 
 function Player(phaserGame, x, y, name) {
@@ -29,8 +50,8 @@ function Player(phaserGame, x, y, name) {
   this.y = y;
   this.game = phaserGame
   this.health = 3.0;
-  this.sprite = phaserGame.physics.add.image(400, 100, 'player');
-  this.sprite.scale = .3;
+  this.sprite = phaserGame.physics.add.image(1337, 1337, 'player');
+  this.sprite.scale = .25;
   this.sprite.x = x
   this.sprite.y = y
   this.sprite.c4cPlayer = this
@@ -90,6 +111,8 @@ function Player(phaserGame, x, y, name) {
     if (this.health <= 0.0) {
       this.sprite.body.checkCollision.none = true
       this.sprite.visible = false
+      game.checkEndgame()
+
     }
   }
 
