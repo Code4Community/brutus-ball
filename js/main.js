@@ -72,7 +72,9 @@ function Player(phaserGame, x, y, name) {
     var projectile = this.game.physics.add.image(100, 100, 'snowball');
     projectile.x = this.x
     projectile.y = this.y
+    projectile.scale = 0.2
     var dirArr = getDirection(direction)
+    projectile.setRotation(Math.atan(dirArr[1] / dirArr[0]))
     this.faceDirection(direction)
     projectile.setVelocity(dirArr[0]*1500, dirArr[1]*1500)
     projectile.c4cSource = this
