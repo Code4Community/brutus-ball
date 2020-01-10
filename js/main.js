@@ -1,3 +1,5 @@
+let MAX_X = 550
+let MAX_Y = 550
 function Game(p) {
   this.players = []
   this.nextTurn = 0; // index of the next player to process turn
@@ -36,8 +38,8 @@ function Game(p) {
       console.log("TIE")
       alert("TIE");
     } else {
-      console.log("PLAYER "+winner+" WON");
-      alert("PLAYER "+winner+" WON")
+      console.log("PLAYER "+(winner+1)+" WON");
+      alert("PLAYER "+(winner+1)+" WON")
     }
     // Stop interpreting, reset for next time.
     window.clearInterval(g.turnTimer);
@@ -64,8 +66,22 @@ function Player(phaserGame, x, y, name) {
     var dirArr = getDirection(direction)
     this.x += dirArr[0] * 50
     this.y += dirArr[1] * 50
+    this.fixBounds()
     this.faceDirection(direction)
     tweenA = this.game.tweens.add({targets: [this.sprite],  props: { x: this.x, y: this.y}, duration: 500, ease: "Quart.easeOut"});
+  }
+
+  this.fixBounds = function () {
+    if (this.x <= 0) {
+      this.x = 0
+    } else if (this.x > MAX_X) {
+      this.x = MAX_X
+    }
+    if (this.y <= 0) {
+      this.y = 0
+    } else if (this.y > MAX_Y) {
+      this.y = MAX_Y
+    }
   }
 
   this.shoot = function (direction) {
@@ -82,11 +98,12 @@ function Player(phaserGame, x, y, name) {
     this.game.physics.add.overlap(game.playerGroup, projectile, collisionHandler, collisionChecker);
 
 
-    var particles = this.game.add.particles('projectile');
+    var particles = this.game.add.particles('particle');
 
     this.projectileEmitter = particles.createEmitter({
-        speed: 100,
-        scale: { start: 1, end: 0 },
+        name: "particle",
+        speed: 50,
+        scale: { start: 2.0, end: 0 },
         blendMode: 'ADD',
         tint: 0x666666
         //speedX: 2.0

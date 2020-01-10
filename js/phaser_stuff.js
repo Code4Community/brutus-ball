@@ -24,6 +24,7 @@ function preload()
 {
     this.load.image("player", "/images/kid_friendly_player.png");
     this.load.image("snowball", "/images/football.gif");
+    this.load.image("particle", "/images/particle.png")
 }
 
 // Initialization Code Run On Game Start
