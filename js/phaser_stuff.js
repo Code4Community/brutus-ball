@@ -32,7 +32,7 @@ function create()
 {
   this.cameras.main.backgroundColor.setTo(200, 200, 200);
 
-  document.getElementById("run-btn").onclick = runS(this)
+  document.getElementById("run-btn").onclick = startStop(this)
 
   var code1 = CodeMirror(document.getElementById("code1"), {
     lineNumbers: true,
@@ -60,7 +60,7 @@ function create()
     makeGame(this, code1, code2);
 }
 
-function runS(g) {
+function startStop(g) {
   return function (e) {
     //var logo = g.physics.add.image(400, 100, 'logo');
     // tweenA = g.tweens.add({targets: [logo],  props: { x: 100, y: 100}, duration: 2000, ease: "Quart.easeOut"});
@@ -71,7 +71,13 @@ function runS(g) {
     //   blendMode: 'ADD'
     // });
     // emitter.startFollow(logo);
-    runSimulation(g);
+    if (game.turnTimer == null) {
+      runSimulation(g);
+      document.getElementById("run-btn").innerText = "STOP"
+    } else {
+      game.manualStop()
+      document.getElementById("run-btn").innerText = "Run Code"
+    }
 
     // logo.setVelocity(100, 200);
     // logo.setBounce(1, 1);

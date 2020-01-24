@@ -19,7 +19,7 @@ function Game(p) {
       g.nextTurn = 0
       if (!g.didSomethingThisIteration) {
         console.log("---- END")
-        window.clearInterval(g.turnTimer);
+        this.manualStop()
       }
       g.didSomethingThisIteration = false
     }
@@ -42,8 +42,15 @@ function Game(p) {
       alert("PLAYER "+(winner+1)+" WON")
     }
     // Stop interpreting, reset for next time.
+    this.manualStop()
+  }
+
+  this.manualStop = function () {
     window.clearInterval(g.turnTimer);
+    g.turnTimer = null
     g.didSomethingThisIteration = false;
+    document.getElementById("run-btn").innerText = "Run Code"
+
   }
 }
 
@@ -88,7 +95,7 @@ function Player(phaserGame, x, y, name) {
     var projectile = this.game.physics.add.image(100, 100, 'snowball');
     projectile.x = this.x
     projectile.y = this.y
-    projectile.scale = 0.2
+    projectile.scale = 0.1
     var dirArr = getDirection(direction)
     projectile.setRotation(Math.atan(dirArr[1] / dirArr[0]))
     this.faceDirection(direction)
@@ -315,7 +322,7 @@ function runSimulation(scene) {
   var interpreter2 = new Interpreter(p2Code, initFunc(game.players[1]));
   game.players[1].interpreter = interpreter2;
   
-  game.turnTimer = setInterval(game.processNextTurn, 750);
+  game.turnTimer = setInterval(game.processNextTurn, 500);
 }
 
 (function() {
