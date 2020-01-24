@@ -66,7 +66,7 @@ function Player(phaserGame, x, y, name) {
   this.sprite.c4cPlayer = this
   this.name = name
   this.interpreter = null
-  this.codeExecuting = true
+  this.codeExecuting = true 
 
   // Moves the tank a little bit in the current direction 
   this.move = function (direction) {
@@ -293,6 +293,31 @@ function runSimulation(scene) {
         return otherPlayer.y;
       }
 
+      var getDirectionW = function() {
+        if (player.getDirection() = [-1.0, 0.0]) {
+          return "left"
+        } else if (player.getDirection() = [1.0, 0.0]) {
+          return "right"
+        } else if (player.getDirection() = [0.0, 1.0]) {
+          return "up"
+        } else {
+          return "down"
+        }
+      }
+
+      var getEnemyDirectionW = function() {
+        let otherPlayer = game.players[0] == player ? game.players[1] : game.players[0];
+        if (otherPlayer.getDirection() = [-1.0, 0.0]) {
+          return "left"
+        } else if (otherPlayer.getDirection() = [1.0, 0.0]) {
+          return "right"
+        } else if (otherPlayer.getDirection() = [0.0, 1.0]) {
+          return "up"
+        } else {
+          return "down"
+        }
+      }
+
       // Tell the sandboxed environment how to access these functions
       interpreter.setProperty(scope, 'log',
         interpreter.createNativeFunction(wrapper));
@@ -312,6 +337,10 @@ function runSimulation(scene) {
         interpreter.createNativeFunction(enemyXW));
       interpreter.setProperty(scope, 'enemyY',
         interpreter.createNativeFunction(enemyYW));
+      interpreter.setProperty(scope, "getDirection",
+        interpreter.createNativeFunction(getDirectionW));
+      interpreter.setProperty(scope, "getEnemyDirection", 
+        interpreter.createNativeFunction(getEnemyDirectionW));
 
     };
   }
@@ -321,13 +350,8 @@ function runSimulation(scene) {
   game.players[0].interpreter = interpreter1;
   var interpreter2 = new Interpreter(p2Code, initFunc(game.players[1]));
   game.players[1].interpreter = interpreter2;
-<<<<<<< Updated upstream
   
   game.turnTimer = setInterval(game.processNextTurn, 500);
-=======
-
-  game.turnTimer = setInterval(game.processNextTurn, 750);
->>>>>>> Stashed changes
 }
 
 (function () {
