@@ -266,12 +266,24 @@ function runSimulation(scene) {
         game.stopExecution = true;
       }
 
-      var conditionW = function () {
-        // TODO: Implement conditions the kids can use
-        // to add if statements to their code
+      var currentXW = function() {
+        return player.x; 
+      }
 
-        // note: stopExecution is not set here
-        return Math.random();
+      var currentYW = function() {
+        return player.y;
+      }
+
+      var enemyXW = function() {
+        // Get a reference to the other player object 
+        let otherPlayer = game.players[0] == player ? game.players[1] : game.players[0];
+        return otherPlayer.x
+      }
+
+      var enemyYW = function () {
+        // Get a reference to the other player object 
+        let otherPlayer = game.players[0] == player ? game.players[1] : game.players[0];
+        return otherPlayer.y;
       }
 
       // Tell the sandboxed environment how to access these functions
@@ -285,8 +297,15 @@ function runSimulation(scene) {
           interpreter.createNativeFunction(turnW));
       interpreter.setProperty(scope, 'skip',
           interpreter.createNativeFunction(skipW));
-      interpreter.setProperty(scope, 'testCondition',
-          interpreter.createNativeFunction(conditionW));
+      interpreter.setProperty(scope, 'currentX',
+          interpreter.createNativeFunction(currentXW));
+      interpreter.setProperty(scope, 'currentY',
+          interpreter.createNativeFunction(currentYW));
+      interpreter.setProperty(scope, 'enemyX',
+          interpreter.createNativeFunction(enemyXW));
+      interpreter.setProperty(scope, 'enemyY',
+          interpreter.createNativeFunction(enemyYW));
+
     };
   }
 
