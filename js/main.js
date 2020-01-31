@@ -14,7 +14,7 @@ function Game(p) {
     if (processTurn(g.players[g.nextTurn])) {
       g.didSomethingThisIteration = true
     }
-    g.nextTurn = ( g.nextTurn + 1 );
+    g.nextTurn = (g.nextTurn + 1);
     if (g.nextTurn >= g.players.length) {
       g.nextTurn = 0
       if (!g.didSomethingThisIteration) {
@@ -38,8 +38,8 @@ function Game(p) {
       console.log("TIE")
       alert("TIE");
     } else {
-      console.log("PLAYER "+(winner+1)+" WON");
-      alert("PLAYER "+(winner+1)+" WON")
+      console.log("PLAYER " + (winner + 1) + " WON");
+      alert("PLAYER " + (winner + 1) + " WON")
     }
     // Stop interpreting, reset for next time.
     this.manualStop()
@@ -66,7 +66,7 @@ function Player(phaserGame, x, y, name) {
   this.sprite.c4cPlayer = this
   this.name = name
   this.interpreter = null
-  this.codeExecuting = true
+  this.codeExecuting = true 
 
   // Moves the tank a little bit in the current direction 
   this.move = function (direction) {
@@ -75,7 +75,7 @@ function Player(phaserGame, x, y, name) {
     this.y += dirArr[1] * 50
     this.fixBounds()
     this.faceDirection(direction)
-    tweenA = this.game.tweens.add({targets: [this.sprite],  props: { x: this.x, y: this.y}, duration: 500, ease: "Quart.easeOut"});
+    tweenA = this.game.tweens.add({ targets: [this.sprite], props: { x: this.x, y: this.y }, duration: 500, ease: "Quart.easeOut" });
   }
 
   this.fixBounds = function () {
@@ -99,7 +99,7 @@ function Player(phaserGame, x, y, name) {
     var dirArr = getDirection(direction)
     projectile.setRotation(Math.atan(dirArr[1] / dirArr[0]))
     this.faceDirection(direction)
-    projectile.setVelocity(dirArr[0]*1500, dirArr[1]*1500)
+    projectile.setVelocity(dirArr[0] * 1500, dirArr[1] * 1500)
     projectile.c4cSource = this
     //game.projectileGroup.add(projectile)
     this.game.physics.add.overlap(game.playerGroup, projectile, collisionHandler, collisionChecker);
@@ -108,19 +108,19 @@ function Player(phaserGame, x, y, name) {
     var particles = this.game.add.particles('particle');
 
     this.projectileEmitter = particles.createEmitter({
-        name: "particle",
-        speed: 50,
-        scale: { start: 2.0, end: 0 },
-        blendMode: 'ADD',
-        tint: 0x666666
-        //speedX: 2.0
+      name: "particle",
+      speed: 50,
+      scale: { start: 2.0, end: 0 },
+      blendMode: 'ADD',
+      tint: 0x666666
+      //speedX: 2.0
     });
 
     this.projectileEmitter.startFollow(projectile)
   }
 
   // Resets all the player stuff 
-  this.clear = function() {
+  this.clear = function () {
     this.x = x
     this.y = y
     this.health = 3.0
@@ -133,7 +133,7 @@ function Player(phaserGame, x, y, name) {
     this.interpreter = null // to avoid hard to find bugs
   }
 
-  this.killIfNecessary = function() {
+  this.killIfNecessary = function () {
     if (this.health <= 0.0) {
       this.sprite.body.checkCollision.none = true
       this.sprite.visible = false
@@ -142,7 +142,7 @@ function Player(phaserGame, x, y, name) {
     }
   }
 
-  this.faceDirection = function(dirString) {
+  this.faceDirection = function (dirString) {
     switch (dirString) {
       case "left":
         this.sprite.setRotation(Math.PI)
@@ -172,7 +172,7 @@ function getDirection(dirString) {
     case "up":
       return [0.0, -1.0]
   }
-  console.log("Invalid direction: "+dirString)
+  console.log("Invalid direction: " + dirString)
   return [0.0, 0.0]
 }
 
@@ -217,13 +217,13 @@ function makeGame(scene, c1, c2) {
 
   game.players.push(new Player(scene, 100.0, 275.0, "Player 1"))
   game.players.push(new Player(scene, 500.0, 275.0, "Player 2"))
-  
+
   game.playerGroup.add(game.players[0].sprite)
   game.playerGroup.add(game.players[1].sprite)
 
   //scene.physics.add.overlap(game.playerGroup, game.projectileGroup, collisionHandler, collisionChecker);
 
-} 
+}
 
 function runSimulation(scene) {
   // This is code that the user entered
@@ -234,54 +234,54 @@ function runSimulation(scene) {
   for (player of game.players) {
     player.clear()
   }
-  
+
   //var p1Code = "move(); log(testCondition()); turn(\"left\"); skip(); throwSnowball(\"left\"); move()"
   //var p2Code = "throwSnowball(\"down\"); turn(\"right\"); move(); move()"
 
   // Interpreter setup function
   var initFunc = function (player) {
-    return function(interpreter, scope) {
+    return function (interpreter, scope) {
       interpreter.setProperty(scope, 'url', String(location));
 
       // Give it a way to print to the console
-      var wrapper = function(text) {
-        return console.log("Player "+player.name+" log: "+text);
+      var wrapper = function (text) {
+        return console.log("Player " + player.name + " log: " + text);
       }
 
       // Left / right / up / down
       var turnW = function (direction) {
-        console.log("Player "+player.name+" turn "+direction+".");
+        console.log("Player " + player.name + " turn " + direction + ".");
         game.stopExecution = true;
       }
 
       // This is the move function! Set stopExecution to true!
       var moveW = function (direction) {
-        console.log("Player "+player.name+" move function executed in direction "+direction);
+        console.log("Player " + player.name + " move function executed in direction " + direction);
         player.move(direction);
         game.stopExecution = true
       }
 
       // This is the throwSnowball function! Set stopExecution to true!
       var throwSnowballW = function (direction) {
-        console.log("Player "+player.name+" throwSnowball "+direction+".");
+        console.log("Player " + player.name + " throwSnowball " + direction + ".");
         player.shoot(direction)
         game.stopExecution = true
       }
 
       var skipW = function () {
-        console.log("Player "+player.name+" skipped turn.");
+        console.log("Player " + player.name + " skipped turn.");
         game.stopExecution = true;
       }
 
-      var currentXW = function() {
-        return player.x; 
+      var currentXW = function () {
+        return player.x;
       }
 
-      var currentYW = function() {
+      var currentYW = function () {
         return player.y;
       }
 
-      var enemyXW = function() {
+      var enemyXW = function () {
         // Get a reference to the other player object 
         let otherPlayer = game.players[0] == player ? game.players[1] : game.players[0];
         return otherPlayer.x
@@ -293,25 +293,54 @@ function runSimulation(scene) {
         return otherPlayer.y;
       }
 
+      var getDirectionW = function() {
+        if (player.getDirection() = [-1.0, 0.0]) {
+          return "left"
+        } else if (player.getDirection() = [1.0, 0.0]) {
+          return "right"
+        } else if (player.getDirection() = [0.0, 1.0]) {
+          return "up"
+        } else {
+          return "down"
+        }
+      }
+
+      var getEnemyDirectionW = function() {
+        let otherPlayer = game.players[0] == player ? game.players[1] : game.players[0];
+        if (otherPlayer.getDirection() = [-1.0, 0.0]) {
+          return "left"
+        } else if (otherPlayer.getDirection() = [1.0, 0.0]) {
+          return "right"
+        } else if (otherPlayer.getDirection() = [0.0, 1.0]) {
+          return "up"
+        } else {
+          return "down"
+        }
+      }
+
       // Tell the sandboxed environment how to access these functions
       interpreter.setProperty(scope, 'log',
-          interpreter.createNativeFunction(wrapper));
+        interpreter.createNativeFunction(wrapper));
       interpreter.setProperty(scope, 'move',
-          interpreter.createNativeFunction(moveW));
+        interpreter.createNativeFunction(moveW));
       interpreter.setProperty(scope, 'throwSnowball',
-          interpreter.createNativeFunction(throwSnowballW));
+        interpreter.createNativeFunction(throwSnowballW));
       interpreter.setProperty(scope, 'turn',
-          interpreter.createNativeFunction(turnW));
+        interpreter.createNativeFunction(turnW));
       interpreter.setProperty(scope, 'skip',
-          interpreter.createNativeFunction(skipW));
+        interpreter.createNativeFunction(skipW));
       interpreter.setProperty(scope, 'currentX',
-          interpreter.createNativeFunction(currentXW));
+        interpreter.createNativeFunction(currentXW));
       interpreter.setProperty(scope, 'currentY',
-          interpreter.createNativeFunction(currentYW));
+        interpreter.createNativeFunction(currentYW));
       interpreter.setProperty(scope, 'enemyX',
-          interpreter.createNativeFunction(enemyXW));
+        interpreter.createNativeFunction(enemyXW));
       interpreter.setProperty(scope, 'enemyY',
-          interpreter.createNativeFunction(enemyYW));
+        interpreter.createNativeFunction(enemyYW));
+      interpreter.setProperty(scope, "getDirection",
+        interpreter.createNativeFunction(getDirectionW));
+      interpreter.setProperty(scope, "getEnemyDirection", 
+        interpreter.createNativeFunction(getEnemyDirectionW));
 
     };
   }
@@ -325,7 +354,7 @@ function runSimulation(scene) {
   game.turnTimer = setInterval(game.processNextTurn, 500);
 }
 
-(function() {
+(function () {
   // document.getElementById("code1").value =  "move(); log(testCondition()); turn(\"left\"); skip(); throwSnowball(\"left\"); move()"
   // document.getElementById("code2").value = "throwSnowball(\"down\"); turn(\"right\"); move(); move()"
 
@@ -337,7 +366,7 @@ function processTurn(player) {
     return
   }
 
-  console.log("Start turn: "+player.name);
+  console.log("Start turn: " + player.name);
   game.stopExecution = false
   i1 = true;
 
@@ -345,7 +374,7 @@ function processTurn(player) {
     i1 = player.interpreter.step()
   }
 
-  console.log("End turn: "+player.name+" "+i1);
+  console.log("End turn: " + player.name + " " + i1);
   player.codeExecuting = i1
   return player.codeExecuting
 }
