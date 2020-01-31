@@ -59,8 +59,10 @@ function Player(phaserGame, x, y, name) {
   this.y = y;
   this.game = phaserGame
   this.health = 3.0;
-  this.sprite = phaserGame.physics.add.image(1337, 1337, 'player');
-  this.sprite.scale = .25;
+  this.sprite = phaserGame.physics.add.image(1337, 1337, 'player');  
+  // this.sprite.scale = .2;
+  this.sprite.scaleY = .25; 
+  this.sprite.scaleX = .2;
   this.sprite.x = x
   this.sprite.y = y
   this.sprite.c4cPlayer = this
@@ -99,7 +101,7 @@ function Player(phaserGame, x, y, name) {
     var dirArr = getDirection(direction)
     projectile.setRotation(Math.atan(dirArr[1] / dirArr[0]))
     this.faceDirection(direction)
-    projectile.setVelocity(dirArr[0] * 1500, dirArr[1] * 1500)
+    projectile.setVelocity(dirArr[0] * 1000, dirArr[1] * 1000)
     projectile.c4cSource = this
     //game.projectileGroup.add(projectile)
     this.game.physics.add.overlap(game.playerGroup, projectile, collisionHandler, collisionChecker);
@@ -341,7 +343,6 @@ function runSimulation(scene) {
         interpreter.createNativeFunction(getDirectionW));
       interpreter.setProperty(scope, "getEnemyDirection", 
         interpreter.createNativeFunction(getEnemyDirectionW));
-
     };
   }
 

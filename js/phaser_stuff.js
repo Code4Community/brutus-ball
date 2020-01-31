@@ -3,7 +3,7 @@ var config =
 {
     type: Phaser.AUTO,
     parent: "thecanvas",
-    width: 800,
+    width: 600,
     height: 600,
     
     physics: {
@@ -24,13 +24,15 @@ function preload()
 {
     this.load.image("player", "/images/kid_friendly_player.png");
     this.load.image("snowball", "/images/football.gif");
-    this.load.image("particle", "/images/particle.png")
+    this.load.image("particle", "/images/particle.png"); 
+    this.load.image("background", "/images/yeehaw.png");
 }
 
 // Initialization Code Run On Game Start
 function create()
 {
-  this.cameras.main.backgroundColor.setTo(200, 200, 200);
+  let image = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'background');
+  image.setScale(this.cameras.main.width / image.width, 3.25).setScrollFactor(0);
 
   document.getElementById("run-btn").onclick = startStop(this)
 
