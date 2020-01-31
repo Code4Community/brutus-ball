@@ -60,6 +60,14 @@ function create()
     });
 
     makeGame(this, code1, code2);
+
+    $('#template').change(function (e) {
+      $.ajax("/js/templates/"+$('#template').val()+".js", {dataType: "text"}).done(function (data) {
+        code2.setValue(data);
+      }).fail(function (a, b, c) {
+        console.log(c);
+      })
+    })
 }
 
 function startStop(g) {
@@ -75,7 +83,6 @@ function startStop(g) {
     // emitter.startFollow(logo);
     if (game.turnTimer == null) {
       runSimulation(g);
-      document.getElementById("run-btn").innerText = "STOP"
     } else {
       game.manualStop()
       document.getElementById("run-btn").innerText = "Run Code"
@@ -88,7 +95,6 @@ function startStop(g) {
     //emitter.startFollow(logo);
   }
 }
-
 
 // Update Code (Runs Every Frame)
 function update()

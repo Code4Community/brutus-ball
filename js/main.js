@@ -201,7 +201,7 @@ function collisionChecker(obj1, obj2) {
 }
 
 function makeGame(scene, c1, c2) {
-  var source1 = "move(\"right\"); log(testCondition());  skip(); throwSnowball(\"right\"); move(\"up\"); move(\"down\"); for (var x=0; x<5; x++) {throwSnowball(\"right\")}"
+  var source1 = "move(\"right\"); skip(); throwSnowball(\"right\"); move(\"up\"); move(\"down\"); for (var x=0; x<5; x++) {throwSnowball(\"right\")}"
   var source2 = "throwSnowball(\"down\"); move(\"up\"); move(\"down\")"
   if (sessionStorage.getItem("code1")) {
     source1 = sessionStorage.getItem("code1")
