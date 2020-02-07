@@ -73,7 +73,7 @@ function Player(phaserGame, x, y, name) {
   this.health = 3.0;
   this.sprite = phaserGame.physics.add.image(1337, 1337, 'player');  
   // this.sprite.scale = .2;
-  this.sprite.scaleY = .25; 
+  this.sprite.scaleY = .3; 
   this.sprite.scaleX = .2;
   this.sprite.x = x
   this.sprite.y = y
