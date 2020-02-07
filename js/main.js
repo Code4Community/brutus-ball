@@ -72,6 +72,7 @@ function Player(phaserGame, x, y, name) {
   this.game = phaserGame
   this.health = 3.0;
   this.sprite = phaserGame.physics.add.image(1337, 1337, 'player');  
+  Object.assign(this, Phaser.GameObjects.Components. Flip);
   // this.sprite.scale = .2;
   this.sprite.scaleY = .3; 
   this.sprite.scaleX = .2;
@@ -81,6 +82,20 @@ function Player(phaserGame, x, y, name) {
   this.name = name
   this.interpreter = null
   this.codeExecuting = true 
+
+  this.BOOM_emitter = this.game.add.particles('particle').createEmitter({
+    x: this.x,
+    y: this.y,
+    speed: { min: -600, max: 600 },
+    angle: { min: 0, max: 360 },
+    scale: { start: 5.3, end: 0 },
+    blendMode: 'SCREEN',
+
+    //active: false,
+    lifespan: 300,
+    gravityY: 800,
+    frequency: 0
+});
 
   // Moves the tank a little bit in the current direction 
   this.move = function (direction) {
@@ -159,18 +174,22 @@ function Player(phaserGame, x, y, name) {
   this.faceDirection = function (dirString) {
     switch (dirString) {
       case "left":
-        this.sprite.setRotation(Math.PI)
+        //this.sprite.setRotation(Math.PI)
+        this.sprite.flipX = true;
         this.changeScale(0)
         break
       case "right":
+        this.sprite.flipX = false;
         this.sprite.setRotation(0)
         this.changeScale(0)
         break
       case "down":
+        this.sprite.flipX = false;
         this.sprite.setRotation(Math.PI / 2.0)
         this.changeScale(1)
         break
       case "up":
+        this.sprite.flipX = false;
         this.sprite.setRotation(3.0 * Math.PI / 2.0)
         this.changeScale(1)
         break
@@ -217,6 +236,11 @@ function collisionHandler(obj1, obj2) {
     obj2.c4cPlayer.killIfNecessary()
     obj1.destroy()
     obj1.c4cSource.projectileEmitter.stop()
+
+    obj2.c4cPlayer.BOOM_emitter.x = obj2.c4cPlayer.x
+    obj2.c4cPlayer.BOOM_emitter.y = obj2.c4cPlayer.y
+
+    obj2.c4cPlayer.BOOM_emitter.explode(100);
   }
 
 }
