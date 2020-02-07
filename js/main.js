@@ -8,6 +8,8 @@ function Game(p) {
   this.didSomethingThisIteration = false
   this.projectileGroup = null
   this.playerGroup = null
+  this.logStr = "";
+  this.roundID = 1
 
   g = this
   this.processNextTurn = function () {
@@ -17,9 +19,10 @@ function Game(p) {
     g.nextTurn = (g.nextTurn + 1);
     if (g.nextTurn >= g.players.length) {
       g.nextTurn = 0
+      g.roundID++;
       if (!g.didSomethingThisIteration) {
         console.log("---- END")
-        this.manualStop()
+        g.manualStop()
       }
       g.didSomethingThisIteration = false
     }
@@ -39,6 +42,9 @@ function Game(p) {
       alert("TIE");
     } else {
       console.log("PLAYER " + (winner + 1) + " WON");
+      g.logStr += "PLAYER " + (winner + 1) + " WON\n"
+      g.logStr += "\n------\n"
+      document.getElementById("logArea").innerHTML = this.logStr
       alert("PLAYER " + (winner + 1) + " WON")
     }
     // Stop interpreting, reset for next time.
@@ -49,8 +55,14 @@ function Game(p) {
     window.clearInterval(g.turnTimer);
     g.turnTimer = null
     g.didSomethingThisIteration = false;
+    this.roundID = 1;
     document.getElementById("run-btn").innerText = "Run Code"
 
+  }
+
+  this.log = function (player, str) {
+    this.logStr += (player.name+" turn "+this.roundID+": "+str+"\n")
+    document.getElementById("logArea").innerHTML = this.logStr
   }
 }
 
@@ -183,6 +195,7 @@ var game = new Game()
 function collisionHandler(obj1, obj2) {
   console.log("COLLISION")
   if (obj2.c4cPlayer != obj1.c4cSource) {
+    g.log(obj2.c4cPlayer, "was hit");
     obj2.c4cPlayer.health -= 1.0
     obj2.c4cPlayer.killIfNecessary()
     obj1.destroy()
@@ -247,7 +260,8 @@ function runSimulation(scene) {
 
       // Give it a way to print to the console
       var wrapper = function (text) {
-        return console.log("Player " + player.name + " log: " + text);
+        console.log("Player " + player.name + " log: " + text);
+        return game.log(player, text)
       }
 
       // Left / right / up / down

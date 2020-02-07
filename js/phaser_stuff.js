@@ -83,6 +83,7 @@ function startStop(g) {
     // emitter.startFollow(logo);
     if (game.turnTimer == null) {
       runSimulation(g);
+      document.getElementById("run-btn").innerText = "STOP"
     } else {
       game.manualStop()
       document.getElementById("run-btn").innerText = "Run Code"
