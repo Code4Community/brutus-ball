@@ -174,7 +174,7 @@ function Player(phaserGame, x, y, name) {
   this.faceDirection = function (dirString) {
     switch (dirString) {
       case "left":
-        //this.sprite.setRotation(Math.PI)
+        this.sprite.setRotation(0)
         this.sprite.flipX = true;
         this.changeScale(0)
         break
