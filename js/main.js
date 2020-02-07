@@ -160,15 +160,32 @@ function Player(phaserGame, x, y, name) {
     switch (dirString) {
       case "left":
         this.sprite.setRotation(Math.PI)
+        this.changeScale(0)
         break
       case "right":
         this.sprite.setRotation(0)
+        this.changeScale(0)
         break
       case "down":
         this.sprite.setRotation(Math.PI / 2.0)
+        this.changeScale(1)
         break
       case "up":
         this.sprite.setRotation(3.0 * Math.PI / 2.0)
+        this.changeScale(1)
+        break
+    }
+  }
+
+  this.changeScale = function (n) {
+    switch (n) {
+      case 0:
+        this.sprite.scaleY = .3; 
+        this.sprite.scaleX = .2;
+        break
+      case 1:
+        this.sprite.scaleY = .2; 
+        this.sprite.scaleX = .3;
         break
     }
   }
