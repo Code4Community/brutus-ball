@@ -90,11 +90,9 @@ function Player(phaserGame, x, y, name) {
     angle: { min: 0, max: 360 },
     scale: { start: 5.3, end: 0 },
     blendMode: 'SCREEN',
-
-    //active: false,
+    frequency: -1,
     lifespan: 300,
     gravityY: 800,
-    frequency: 0
 });
 
   // Moves the tank a little bit in the current direction 
@@ -237,9 +235,7 @@ function collisionHandler(obj1, obj2) {
     obj1.destroy()
     obj1.c4cSource.projectileEmitter.stop()
 
-    obj2.c4cPlayer.BOOM_emitter.x = obj2.c4cPlayer.x
-    obj2.c4cPlayer.BOOM_emitter.y = obj2.c4cPlayer.y
-
+    obj2.c4cPlayer.BOOM_emitter.setPosition(obj2.c4cPlayer.x, obj2.c4cPlayer.y)
     obj2.c4cPlayer.BOOM_emitter.explode(100);
   }
 
