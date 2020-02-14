@@ -13,8 +13,10 @@
         - Keeps a limitation that you need to shoot at least every fifth iteration or something like that 
 - Make the game more customizable
 - Make skins for the game 
-    - Tanks, Snowballs, Football, etc. 
-    
+    - Tanks, Snowballs, Football, etc.
+- Distinguish Player 1, Player 2 graphically so they don't look very different 
+    - Don't be racist though y'all 
+
 ## Interface Work 
 
 - Make the game look better 
