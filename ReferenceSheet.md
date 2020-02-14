@@ -15,7 +15,8 @@
 - Make skins for the game 
     - Tanks, Snowballs, Football, etc.
 - Distinguish Player 1, Player 2 graphically so they don't look very different 
-    - Don't be racist though y'all 
+    - Don't be racist though y'all
+- Implement a backend that lets people send us their code 
 
 ## Interface Work 
 
@@ -29,3 +30,4 @@
 - Figure out how we plan on actually deploying the website (probably just w/ GitHub pages but we can probably use Netlify or something like that as well)
 - Make a reference sheet that we can print out and give to them so they don't have to look our commands up or so we don't have to keep a slide up 
 - Put a link to our presentation or to some sort of reference document, etc. on our website 
+- Give them challenges ("implement this") or make a SuperBug that they have to try and beat 
