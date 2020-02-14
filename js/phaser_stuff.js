@@ -49,13 +49,13 @@ function create()
     // When the text field changes, mirror it to the end object 
     code1.on("change", () => {
       let user = game.code1.getValue()
-      sessionStorage.setItem("code1", user);
+      localStorage.setItem("code1", user);
       console.log("Player 1 Code Saved!");
     });
 
     code2.on("change", () => {
       let user = game.code2.getValue()
-      sessionStorage.setItem("code2", user);
+      localStorage.setItem("code2", user);
       console.log("Player 2 Code Saved!");
     });
 

@@ -39,13 +39,16 @@ function Game(p) {
     // There was a winner, or no winner
     if (winner == -1) {
       console.log("TIE")
-      alert("TIE");
+      g.logStr += "TIE\n"
+      g.logStr += "\n------\n"
+      document.getElementById("logArea").innerHTML = this.logStr
+      //alert("TIE");
     } else {
       console.log("PLAYER " + (winner + 1) + " WON");
       g.logStr += "PLAYER " + (winner + 1) + " WON\n"
       g.logStr += "\n------\n"
       document.getElementById("logArea").innerHTML = this.logStr
-      alert("PLAYER " + (winner + 1) + " WON")
+      //alert("PLAYER " + (winner + 1) + " WON")
     }
     // Stop interpreting, reset for next time.
     this.manualStop()
@@ -253,11 +256,13 @@ function collisionChecker(obj1, obj2) {
 function makeGame(scene, c1, c2) {
   var source1 = "move(\"right\"); skip(); throwSnowball(\"right\"); move(\"up\"); move(\"down\"); for (var x=0; x<5; x++) {throwSnowball(\"right\")}"
   var source2 = "throwSnowball(\"down\"); move(\"up\"); move(\"down\")"
-  if (sessionStorage.getItem("code1")) {
-    source1 = sessionStorage.getItem("code1")
+  if (localStorage.getItem("code1")) {
+    source1 = localStorage.getItem("code1")
   }
-  if (sessionStorage.getItem("code2")) {
-    source2 = sessionStorage.getItem("code2")
+  if (localStorage.getItem("code2")) {
+    source2 = localStorage.getItem("code2")
+    console.log(source2)
+
   }
   game.code1 = c1
   game.code2 = c2
@@ -422,8 +427,13 @@ function processTurn(player) {
   game.stopExecution = false
   i1 = true;
 
-  while (i1 && !game.stopExecution) {
+  counter = 100000
+  while (i1 && !game.stopExecution && counter > 0) {
+    counter -= 1
     i1 = player.interpreter.step()
+  }
+  if (counter == 0) {
+    game.log(player, "Turn Timed Out (You have an infinite loop!)")
   }
 
   console.log("End turn: " + player.name + " " + i1);
