@@ -254,8 +254,8 @@ function collisionChecker(obj1, obj2) {
 }
 
 function makeGame(scene, c1, c2) {
-  var source1 = "move(\"right\"); skip(); throwSnowball(\"right\"); move(\"up\"); move(\"down\"); for (var x=0; x<5; x++) {throwSnowball(\"right\")}"
-  var source2 = "throwSnowball(\"down\"); move(\"up\"); move(\"down\")"
+  var source1 = "move(\"right\"); skip(); throwFootball(\"right\"); move(\"up\"); move(\"down\"); for (var x=0; x<5; x++) {throwFootball(\"right\")}"
+  var source2 = "throwFootball(\"down\"); move(\"up\"); move(\"down\")"
   if (localStorage.getItem("code1")) {
     source1 = localStorage.getItem("code1")
   }
@@ -292,8 +292,8 @@ function runSimulation(scene) {
     player.clear()
   }
 
-  //var p1Code = "move(); log(testCondition()); turn(\"left\"); skip(); throwSnowball(\"left\"); move()"
-  //var p2Code = "throwSnowball(\"down\"); turn(\"right\"); move(); move()"
+  //var p1Code = "move(); log(testCondition()); turn(\"left\"); skip(); throwFootball(\"left\"); move()"
+  //var p2Code = "throwFootball(\"down\"); turn(\"right\"); move(); move()"
 
   // Interpreter setup function
   var initFunc = function (player) {
@@ -319,9 +319,9 @@ function runSimulation(scene) {
         game.stopExecution = true
       }
 
-      // This is the throwSnowball function! Set stopExecution to true!
-      var throwSnowballW = function (direction) {
-        console.log("Player " + player.name + " throwSnowball " + direction + ".");
+      // This is the throwFootball function! Set stopExecution to true!
+      var throwFootballW = function (direction) {
+        console.log("Player " + player.name + " throwFootball " + direction + ".");
         player.shoot(direction)
         game.stopExecution = true
       }
@@ -331,11 +331,11 @@ function runSimulation(scene) {
         game.stopExecution = true;
       }
 
-      var currentXW = function () {
+      var playerXW = function () {
         return player.x;
       }
 
-      var currentYW = function () {
+      var playerYW = function () {
         return player.y;
       }
 
@@ -381,16 +381,16 @@ function runSimulation(scene) {
         interpreter.createNativeFunction(wrapper));
       interpreter.setProperty(scope, 'move',
         interpreter.createNativeFunction(moveW));
-      interpreter.setProperty(scope, 'throwSnowball',
-        interpreter.createNativeFunction(throwSnowballW));
+      interpreter.setProperty(scope, 'throwFootball',
+        interpreter.createNativeFunction(throwFootballW));
       interpreter.setProperty(scope, 'turn',
         interpreter.createNativeFunction(turnW));
       interpreter.setProperty(scope, 'skip',
         interpreter.createNativeFunction(skipW));
-      interpreter.setProperty(scope, 'currentX',
-        interpreter.createNativeFunction(currentXW));
-      interpreter.setProperty(scope, 'currentY',
-        interpreter.createNativeFunction(currentYW));
+      interpreter.setProperty(scope, 'playerX',
+        interpreter.createNativeFunction(playerXW));
+      interpreter.setProperty(scope, 'playerY',
+        interpreter.createNativeFunction(playerYW));
       interpreter.setProperty(scope, 'enemyX',
         interpreter.createNativeFunction(enemyXW));
       interpreter.setProperty(scope, 'enemyY',
@@ -412,8 +412,8 @@ function runSimulation(scene) {
 }
 
 (function () {
-  // document.getElementById("code1").value =  "move(); log(testCondition()); turn(\"left\"); skip(); throwSnowball(\"left\"); move()"
-  // document.getElementById("code2").value = "throwSnowball(\"down\"); turn(\"right\"); move(); move()"
+  // document.getElementById("code1").value =  "move(); log(testCondition()); turn(\"left\"); skip(); throwFootball(\"left\"); move()"
+  // document.getElementById("code2").value = "throwFootball(\"down\"); turn(\"right\"); move(); move()"
 
 })();
 

@@ -1,5 +1,3 @@
 while (true) {
-
-    throwSnowball("left");
-
+    throwFootball("left");
 }

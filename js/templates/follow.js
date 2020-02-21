@@ -1,14 +1,14 @@
 while (true) {
 
-    if (currentX() > enemyX()) {
+    if (playerX() > enemyX()) {
         move("left");
-    } else if (currentX() < enemyX()) {
+    } else if (playerX() < enemyX()) {
         move("right");
     } else {
-        if (currentY() > enemyY()) {
-            throwSnowball("up");
+        if (playerY() > enemyY()) {
+            throwFootball("up");
         } else {
-            throwSnowball("down");
+            throwFootball("down");
         }
     }
 
