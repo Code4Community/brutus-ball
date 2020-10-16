@@ -71,7 +71,7 @@ function Game(p) {
   }
 
   this.addEvent = function (player, imgHTML, textHTML) {
-    $('#actions').append(`<tr><td>${player}</td><td>${imgHTML}</td><td>${textHTML}</td><td>${this.players[0].health}</td><td>${this.players[1].health}</td></tr>`)
+    $('#actions').prepend(`<tr><td scope="row">${player}</td><td>${textHTML}</td><td>${this.players[0].health}</td><td>${this.players[1].health}</td></tr>`)
   }
 
   this.updateWinIndicator = function () {
