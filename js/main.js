@@ -41,13 +41,13 @@ function Game(p) {
       console.log("TIE")
       g.logStr += "TIE\n"
       g.logStr += "\n------\n"
-      document.getElementById("logArea").innerHTML = this.logStr
+      // document.getElementById("logArea").innerHTML = this.logStr
       //alert("TIE");
     } else {
       console.log("PLAYER " + (winner + 1) + " WON");
       g.logStr += "PLAYER " + (winner + 1) + " WON\n"
       g.logStr += "\n------\n"
-      document.getElementById("logArea").innerHTML = this.logStr
+      // document.getElementById("logArea").innerHTML = this.logStr
       //alert("PLAYER " + (winner + 1) + " WON")
     }
     // Stop interpreting, reset for next time.
@@ -65,13 +65,11 @@ function Game(p) {
 
   this.log = function (player, str) {
     this.logStr += (player.name+" turn "+this.roundID+": "+str+"\n")
-    document.getElementById("logArea").innerHTML = this.logStr
+    // document.getElementById("logArea").innerHTML = this.logStr
   }
 
   this.addEvent = function (player, imgHTML, textHTML) {
     $('#actions').append(`<tr><td>${player}</td><td>${imgHTML}</td><td>${textHTML}</td><td>${this.players[0].health}</td><td>${this.players[1].health}</td></tr>`)
-    // this.logStr += (player.name+" turn "+this.roundID+": "+str+"\n")
-    // document.getElementById("logArea").innerHTML = this.logStr
   }
 }
 
@@ -240,6 +238,7 @@ function collisionHandler(obj1, obj2) {
   console.log("COLLISION")
   if (obj2.c4cPlayer != obj1.c4cSource) {
     g.log(obj2.c4cPlayer, "was hit");
+    g.addEvent(obj2.c4cPlayer.name, "Hit!", `${obj2.c4cPlayer.name} was hit!`)
     obj2.c4cPlayer.health -= 1.0
     obj2.c4cPlayer.killIfNecessary()
     obj1.destroy()
