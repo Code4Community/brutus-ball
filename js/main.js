@@ -48,9 +48,9 @@ function Game(p) {
       g.logStr += "PLAYER " + (winner + 1) + " WON\n"
       g.logStr += "\n------\n"
       if (winner == 0) {
-        $('#winIndicator').html(`<h3>Ohio State won ${this.players[1].health}-${this.players[0].health}</h3>`)
+        $('#score').text('Yay! OSU won!')
       } else {
-        $('#winIndicator').html(`<h3>Michigan won ${this.players[0].health}-${this.players[1].health}</h3>`)
+        $('#score').text('Oh no! Michigan won.')
       }
       //alert("PLAYER " + (winner + 1) + " WON")
     }
@@ -78,14 +78,16 @@ function Game(p) {
   }
 
   this.updateWinIndicator = function () {
-    $('#winIndicator').toggle(true)
-    if (this.players[1].health > this.players[0].health) {
-      $('#winIndicator').html(`<h3>Ohio State up ${this.players[1].health}-${this.players[0].health}</h3>`)
-    } else if (this.players[0].health > this.players[1].health) {
-      $('#winIndicator').html(`<h3>Michigan up ${this.players[0].health}-${this.players[1].health}</h3>`)
-    } else {
-      $('#winIndicator').html(`<h3>Tied ${this.players[1].health}-${this.players[0].health}</h3>`)
-    }
+    // $('#winIndicator').toggle(true)
+    // if (this.players[1].health > this.players[0].health) {
+    //   $('#winIndicator').html(`<h3>Ohio State up ${this.players[1].health}-${this.players[0].health}</h3>`)
+    // } else if (this.players[0].health > this.players[1].health) {
+    //   $('#winIndicator').html(`<h3>Michigan up ${this.players[0].health}-${this.players[1].health}</h3>`)
+    // } else {
+    //   $('#winIndicator').html(`<h3>Tied ${this.players[1].health}-${this.players[0].health}</h3>`)
+    // }
+    $("#osuScore").text(this.players[1].health)
+    $("#michiganScore").text(this.players[0].health)
   }
 }
 
@@ -319,6 +321,9 @@ function runSimulation(scene) {
 
   $('#actions').empty();
 
+  $("#osuScore").text("0")
+  $("#michiganScore").text("0")
+  $("#score").html('<div id="score"><div>Ohio State: <span id="osuScore"></span></div><div>Michigan: <span id="michiganScore"></span></div></div>')
 
   //var p1Code = "move(); log(testCondition()); turn(\"left\"); skip(); throwFootball(\"left\"); move()"
   //var p2Code = "throwFootball(\"down\"); turn(\"right\"); move(); move()"
