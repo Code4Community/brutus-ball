@@ -67,14 +67,20 @@ function Game(p) {
     this.logStr += (player.name+" turn "+this.roundID+": "+str+"\n")
     document.getElementById("logArea").innerHTML = this.logStr
   }
+
+  this.addEvent = function (player, imgHTML, textHTML) {
+    $('#actions').append(`<tr><td>${player}</td><td>${imgHTML}</td><td>${textHTML}</td><td>${this.players[0].health}</td><td>${this.players[1].health}</td></tr>`)
+    // this.logStr += (player.name+" turn "+this.roundID+": "+str+"\n")
+    // document.getElementById("logArea").innerHTML = this.logStr
+  }
 }
 
-function Player(phaserGame, x, y, name) {
+function Player(phaserGame, x, y, name, sprite) {
   this.x = x;
   this.y = y;
   this.game = phaserGame
   this.health = 3.0;
-  this.sprite = phaserGame.physics.add.image(1337, 1337, 'player');  
+  this.sprite = phaserGame.physics.add.image(1337, 1337, sprite);  
   Object.assign(this, Phaser.GameObjects.Components. Flip);
   // this.sprite.scale = .2;
   this.sprite.scaleY = .3; 
@@ -89,13 +95,13 @@ function Player(phaserGame, x, y, name) {
   this.BOOM_emitter = this.game.add.particles('particle').createEmitter({
     x: this.x,
     y: this.y,
-    speed: { min: -600, max: 600 },
+    speed: { min: -200, max: 200 },
     angle: { min: 0, max: 360 },
     scale: { start: 5.3, end: 0 },
     blendMode: 'SCREEN',
     frequency: -1,
-    lifespan: 300,
-    gravityY: 800,
+    lifespan: 500,
+    gravityY: 100,
 });
 
   // Moves the tank a little bit in the current direction 
@@ -173,6 +179,7 @@ function Player(phaserGame, x, y, name) {
   }
 
   this.faceDirection = function (dirString) {
+    return // don't change direction right now
     switch (dirString) {
       case "left":
         this.sprite.setRotation(0)
@@ -239,7 +246,7 @@ function collisionHandler(obj1, obj2) {
     obj1.c4cSource.projectileEmitter.stop()
 
     obj2.c4cPlayer.BOOM_emitter.setPosition(obj2.c4cPlayer.x, obj2.c4cPlayer.y)
-    obj2.c4cPlayer.BOOM_emitter.explode(100);
+    obj2.c4cPlayer.BOOM_emitter.explode(10);
   }
 
 }
@@ -272,8 +279,8 @@ function makeGame(scene, c1, c2) {
   game.projectileGroup = scene.physics.add.group()
   game.playerGroup = scene.physics.add.group()
 
-  game.players.push(new Player(scene, 100.0, 275.0, "Player 1"))
-  game.players.push(new Player(scene, 500.0, 275.0, "Player 2"))
+  game.players.push(new Player(scene, 100.0, 275.0, "Ohio State", "player"))
+  game.players.push(new Player(scene, 500.0, 275.0, "Xichigan", "umich"))
 
   game.playerGroup.add(game.players[0].sprite)
   game.playerGroup.add(game.players[1].sprite)
@@ -315,6 +322,7 @@ function runSimulation(scene) {
       // This is the move function! Set stopExecution to true!
       var moveW = function (direction) {
         console.log("Player " + player.name + " move function executed in direction " + direction);
+        game.addEvent(player.name, "Move", "Move "+direction)
         player.move(direction);
         game.stopExecution = true
       }
@@ -322,12 +330,14 @@ function runSimulation(scene) {
       // This is the throwFootball function! Set stopExecution to true!
       var throwFootballW = function (direction) {
         console.log("Player " + player.name + " throwFootball " + direction + ".");
+        game.addEvent(player.name, "Throw", "Throw "+direction)
         player.shoot(direction)
         game.stopExecution = true
       }
 
       var skipW = function () {
         console.log("Player " + player.name + " skipped turn.");
+        game.addEvent(player.name, "Skip", "Skipped turn.")
         game.stopExecution = true;
       }
 
@@ -383,8 +393,8 @@ function runSimulation(scene) {
         interpreter.createNativeFunction(moveW));
       interpreter.setProperty(scope, 'throwFootball',
         interpreter.createNativeFunction(throwFootballW));
-      interpreter.setProperty(scope, 'turn',
-        interpreter.createNativeFunction(turnW));
+      // interpreter.setProperty(scope, 'turn',
+      //   interpreter.createNativeFunction(turnW));
       interpreter.setProperty(scope, 'skip',
         interpreter.createNativeFunction(skipW));
       interpreter.setProperty(scope, 'playerX',
