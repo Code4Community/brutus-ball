@@ -79,4 +79,8 @@ canvas {
   margin: 35px auto 0px auto;
   display: block;
 }
+
+#winIndicator {
+  text-align: center;
+}
 /*# sourceMappingURL=style.css.map */

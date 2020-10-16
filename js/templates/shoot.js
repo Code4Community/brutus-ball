@@ -1,3 +1,3 @@
 while (true) {
-    throwFootball("left");
+    throwFootball("left")
 }

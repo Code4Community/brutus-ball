@@ -31,7 +31,7 @@ function Game(p) {
   this.checkEndgame = function () {
     var winner = -1;
     for (var idx = 0; idx < this.players.length; idx++) {
-      if (this.players[idx].health > 0) {
+      if (this.players[idx].health < 3) {
         if (winner != -1) return;
         winner = idx;
       }
@@ -46,6 +46,11 @@ function Game(p) {
       console.log("PLAYER " + (winner + 1) + " WON");
       g.logStr += "PLAYER " + (winner + 1) + " WON\n"
       g.logStr += "\n------\n"
+      if (winner == 0) {
+        $('#winIndicator').html(`<h3>Ohio State won ${this.players[1].health}-${this.players[0].health}</h3>`)
+      } else {
+        $('#winIndicator').html(`<h3>Michigan won ${this.players[0].health}-${this.players[1].health}</h3>`)
+      }
       //alert("PLAYER " + (winner + 1) + " WON")
     }
     // Stop interpreting, reset for next time.
@@ -68,13 +73,24 @@ function Game(p) {
   this.addEvent = function (player, imgHTML, textHTML) {
     $('#actions').append(`<tr><td>${player}</td><td>${imgHTML}</td><td>${textHTML}</td><td>${this.players[0].health}</td><td>${this.players[1].health}</td></tr>`)
   }
+
+  this.updateWinIndicator = function () {
+    $('#winIndicator').toggle(true)
+    if (this.players[1].health > this.players[0].health) {
+      $('#winIndicator').html(`<h3>Ohio State up ${this.players[1].health}-${this.players[0].health}</h3>`)
+    } else if (this.players[0].health > this.players[1].health) {
+      $('#winIndicator').html(`<h3>Michigan up ${this.players[0].health}-${this.players[1].health}</h3>`)
+    } else {
+      $('#winIndicator').html(`<h3>Tied ${this.players[1].health}-${this.players[0].health}</h3>`)
+    }
+  }
 }
 
 function Player(phaserGame, x, y, name, sprite) {
   this.x = x;
   this.y = y;
   this.game = phaserGame
-  this.health = 3.0;
+  this.health = 0.0;
   this.sprite = phaserGame.physics.add.image(1337, 1337, sprite);  
   Object.assign(this, Phaser.GameObjects.Components. Flip);
   // this.sprite.scale = .2;
@@ -131,7 +147,7 @@ function Player(phaserGame, x, y, name, sprite) {
     var dirArr = getDirection(direction)
     projectile.setRotation(Math.atan(dirArr[1] / dirArr[0]))
     this.faceDirection(direction)
-    projectile.setVelocity(dirArr[0] * 1000, dirArr[1] * 1000)
+    projectile.setVelocity(dirArr[0] * 500, dirArr[1] * 500)
     projectile.c4cSource = this
     //game.projectileGroup.add(projectile)
     this.game.physics.add.overlap(game.playerGroup, projectile, collisionHandler, collisionChecker);
@@ -155,7 +171,7 @@ function Player(phaserGame, x, y, name, sprite) {
   this.clear = function () {
     this.x = x
     this.y = y
-    this.health = 3.0
+    this.health = 0.0
     this.sprite.x = x
     this.sprite.y = y
     this.sprite.visible = true
@@ -166,7 +182,7 @@ function Player(phaserGame, x, y, name, sprite) {
   }
 
   this.killIfNecessary = function () {
-    if (this.health <= 0.0) {
+    if (this.health >= 3.0) {
       this.sprite.body.checkCollision.none = true
       this.sprite.visible = false
       game.checkEndgame()
@@ -235,10 +251,11 @@ var game = new Game()
 function collisionHandler(obj1, obj2) {
   console.log("COLLISION")
   if (obj2.c4cPlayer != obj1.c4cSource) {
-    obj2.c4cPlayer.health -= 1.0
+    obj2.c4cPlayer.health += 1.0
     
     g.log(obj2.c4cPlayer, "was hit");
     g.addEvent(obj2.c4cPlayer.name, "Hit!", `${obj2.c4cPlayer.name} was hit!`)
+    g.updateWinIndicator();
 
     obj2.c4cPlayer.killIfNecessary()
     obj1.destroy()
@@ -279,7 +296,7 @@ function makeGame(scene, c1, c2) {
   game.playerGroup = scene.physics.add.group()
 
   game.players.push(new Player(scene, 150.0, 175.0, "Ohio State", "player"))
-  game.players.push(new Player(scene, 600.0, 175.0, "Xichigan", "umich"))
+  game.players.push(new Player(scene, 600.0, 175.0, "Michigan", "umich"))
 
   game.playerGroup.add(game.players[0].sprite)
   game.playerGroup.add(game.players[1].sprite)
@@ -426,13 +443,13 @@ function runSimulation(scene) {
   try {
     var interpreter2 = new Interpreter(p2Code, initFunc(game.players[1]));
   } catch (e) {
-    alert("You have a syntax error in your code for Xichigan! Check parentheses () and quotes \"\"")
+    alert("You have a syntax error in your code for Michigan! Check parentheses () and quotes \"\"")
     game.manualStop()
     return
   }
   game.players[1].interpreter = interpreter2;
   
-  game.turnTimer = setInterval(game.processNextTurn, 500);
+  game.turnTimer = setInterval(game.processNextTurn, 1000);
 }
 
 (function () {

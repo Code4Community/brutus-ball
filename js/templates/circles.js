@@ -1,19 +1,19 @@
 while (true) {
 
     for (var x = 0; x < 4; x++) {
-        move("right");
+        move("right")
     }
 
     for (var x = 0; x < 4; x++) {
-        move("up");
+        move("up")
     }
 
     for (var x = 0; x < 4; x++) {
-        move("left");
+        move("left")
     }
 
     for (var x = 0; x < 4; x++) {
-        move("down");
+        move("down")
     }
 
 }
