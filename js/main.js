@@ -65,7 +65,7 @@ function Game(p) {
 
   this.log = function (player, str) {
     this.logStr += (player.name+" turn "+this.roundID+": "+str+"\n")
-    document.getElementById("logArea").innerHTML = this.logStr
+    //document.getElementById("logArea").innerHTML = this.logStr
   }
 
   this.addEvent = function (player, imgHTML, textHTML) {
