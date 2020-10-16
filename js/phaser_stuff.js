@@ -66,7 +66,7 @@ function create() {
 }
 
 function changeTemplate(template) {
-  $.ajax("/js/templates/" + template + ".js", { dataType: "text" }).done(function (data) {
+  $.ajax("js/templates/" + template + ".js", { dataType: "text" }).done(function (data) {
     code2.setValue(data);
   }).fail(function (a, b, c) {
     console.log(c);
