@@ -10,6 +10,7 @@ function Game(p) {
   this.playerGroup = null
   this.logStr = "";
   this.roundID = 1
+  this.eventCount = 1;
 
   g = this
   this.processNextTurn = function () {
@@ -62,6 +63,7 @@ function Game(p) {
     g.turnTimer = null
     g.didSomethingThisIteration = false;
     this.roundID = 1;
+    this.eventCount = 1;
     document.getElementById("run-btn").innerText = "Kickoff!"
   }
 
@@ -71,7 +73,8 @@ function Game(p) {
   }
 
   this.addEvent = function (player, imgHTML, textHTML) {
-    $('#actions').prepend(`<tr><td scope="row">${player}</td><td>${textHTML}</td><td>${this.players[0].health}</td><td>${this.players[1].health}</td></tr>`)
+    $('#actions').prepend(`<tr><td scope="row">${this.eventCount}</td><td scope="row">${player}</td><td>${textHTML}</td><td>${this.players[0].health}</td><td>${this.players[1].health}</td></tr>`)
+    this.eventCount += 1
   }
 
   this.updateWinIndicator = function () {
