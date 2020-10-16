@@ -1,5 +1,5 @@
-let MAX_X = 550
-let MAX_Y = 550
+let MAX_X = 725
+let MAX_Y = 325
 function Game(p) {
   this.players = []
   this.nextTurn = 0; // index of the next player to process turn
@@ -41,13 +41,11 @@ function Game(p) {
       console.log("TIE")
       g.logStr += "TIE\n"
       g.logStr += "\n------\n"
-      // document.getElementById("logArea").innerHTML = this.logStr
       //alert("TIE");
     } else {
       console.log("PLAYER " + (winner + 1) + " WON");
       g.logStr += "PLAYER " + (winner + 1) + " WON\n"
       g.logStr += "\n------\n"
-      // document.getElementById("logArea").innerHTML = this.logStr
       //alert("PLAYER " + (winner + 1) + " WON")
     }
     // Stop interpreting, reset for next time.
@@ -59,8 +57,7 @@ function Game(p) {
     g.turnTimer = null
     g.didSomethingThisIteration = false;
     this.roundID = 1;
-    document.getElementById("run-btn").innerText = "Run Code"
-
+    document.getElementById("run-btn").innerText = "Kickoff!"
   }
 
   this.log = function (player, str) {
@@ -89,6 +86,7 @@ function Player(phaserGame, x, y, name, sprite) {
   this.name = name
   this.interpreter = null
   this.codeExecuting = true 
+  this.markedText = null
 
   this.BOOM_emitter = this.game.add.particles('particle').createEmitter({
     x: this.x,
@@ -237,9 +235,11 @@ var game = new Game()
 function collisionHandler(obj1, obj2) {
   console.log("COLLISION")
   if (obj2.c4cPlayer != obj1.c4cSource) {
+    obj2.c4cPlayer.health -= 1.0
+    
     g.log(obj2.c4cPlayer, "was hit");
     g.addEvent(obj2.c4cPlayer.name, "Hit!", `${obj2.c4cPlayer.name} was hit!`)
-    obj2.c4cPlayer.health -= 1.0
+
     obj2.c4cPlayer.killIfNecessary()
     obj1.destroy()
     obj1.c4cSource.projectileEmitter.stop()
@@ -260,8 +260,8 @@ function collisionChecker(obj1, obj2) {
 }
 
 function makeGame(scene, c1, c2) {
-  var source1 = "move(\"right\"); skip(); throwFootball(\"right\"); move(\"up\"); move(\"down\"); for (var x=0; x<5; x++) {throwFootball(\"right\")}"
-  var source2 = "throwFootball(\"down\"); move(\"up\"); move(\"down\")"
+  var source1 = "throwFootball(\"right\")\nmove(\"up\")\nmove(\"up\")\nthrowFootball(\"right\")\nthrowFootball(\"right\")\nthrowFootball(\"right\")\nthrowFootball(\"right\")\nthrowFootball(\"right\")"
+  var source2 = "throwFootball(\"down\")\nmove(\"up\")\nmove(\"down\")"
   if (localStorage.getItem("code1")) {
     source1 = localStorage.getItem("code1")
   }
@@ -278,8 +278,8 @@ function makeGame(scene, c1, c2) {
   game.projectileGroup = scene.physics.add.group()
   game.playerGroup = scene.physics.add.group()
 
-  game.players.push(new Player(scene, 100.0, 275.0, "Ohio State", "player"))
-  game.players.push(new Player(scene, 500.0, 275.0, "Xichigan", "umich"))
+  game.players.push(new Player(scene, 150.0, 175.0, "Ohio State", "player"))
+  game.players.push(new Player(scene, 600.0, 175.0, "Xichigan", "umich"))
 
   game.playerGroup.add(game.players[0].sprite)
   game.playerGroup.add(game.players[1].sprite)
@@ -290,13 +290,15 @@ function makeGame(scene, c1, c2) {
 
 function runSimulation(scene) {
   // This is code that the user entered
-
   var p1Code = game.code1.getValue()
   var p2Code = game.code2.getValue()
 
   for (player of game.players) {
     player.clear()
   }
+
+  $('#actions').empty();
+
 
   //var p1Code = "move(); log(testCondition()); turn(\"left\"); skip(); throwFootball(\"left\"); move()"
   //var p2Code = "throwFootball(\"down\"); turn(\"right\"); move(); move()"
@@ -412,9 +414,22 @@ function runSimulation(scene) {
   }
 
   // Make an interpreter for each player
-  var interpreter1 = new Interpreter(p1Code, initFunc(game.players[0]));
+  try {
+    var interpreter1 = new Interpreter(p1Code, initFunc(game.players[0]));
+  } catch (e) {
+    alert("You have a syntax error in your code for Ohio State! Check parentheses () and quotes \"\"")
+    game.manualStop()
+    return
+  }
   game.players[0].interpreter = interpreter1;
-  var interpreter2 = new Interpreter(p2Code, initFunc(game.players[1]));
+
+  try {
+    var interpreter2 = new Interpreter(p2Code, initFunc(game.players[1]));
+  } catch (e) {
+    alert("You have a syntax error in your code for Xichigan! Check parentheses () and quotes \"\"")
+    game.manualStop()
+    return
+  }
   game.players[1].interpreter = interpreter2;
   
   game.turnTimer = setInterval(game.processNextTurn, 500);
@@ -439,7 +454,12 @@ function processTurn(player) {
   counter = 100000
   while (i1 && !game.stopExecution && counter > 0) {
     counter -= 1
-    i1 = player.interpreter.step()
+    try {
+      i1 = player.interpreter.step()
+    } catch (e) {
+      game.addEvent(player.name, "ERROR", ""+e)
+      break;
+    }
   }
   if (counter == 0) {
     game.log(player, "Turn Timed Out (You have an infinite loop!)")
@@ -447,6 +467,16 @@ function processTurn(player) {
 
   console.log("End turn: " + player.name + " " + i1);
   player.codeExecuting = i1
+
+  // if (player == game.players[0]) {
+  //   var node = player.interpreter.stateStack[myInterpreter.stateStack.length - 1].node;
+  //   var start = node.start;
+  //   // Find line number
+
+  //   // var end = node.end;
+  //   player.markedText = code1.getDoc().markText({line:i,ch:0},{line:i,ch:lines[i].length},{css: "background-color: yellow"});
+  // }
+
   return player.codeExecuting
 }
 

@@ -85,11 +85,11 @@ function startStop(g) {
     // });
     // emitter.startFollow(logo);
     if (game.turnTimer == null) {
-      runSimulation(g);
       document.getElementById("run-btn").innerText = "STOP"
+      runSimulation(g);
     } else {
       game.manualStop()
-      document.getElementById("run-btn").innerText = "Run Code"
+      document.getElementById("run-btn").innerText = "Kickoff!"
     }
 
     // logo.setVelocity(100, 200);

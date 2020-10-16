@@ -1,14 +1,14 @@
 while (true) {
 
-    if (playerX() > enemyX()) {
-        move("left");
-    } else if (playerX() < enemyX()) {
-        move("right");
+    if (playerY() < enemyY()) {
+        move("down");
+    } else if (playerY() > enemyY()) {
+        move("up");
     } else {
-        if (playerY() > enemyY()) {
-            throwFootball("up");
+        if (playerX() > enemyX()) {
+            throwFootball("left");
         } else {
-            throwFootball("down");
+            throwFootball("right");
         }
     }
 

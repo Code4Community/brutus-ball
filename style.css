@@ -28,6 +28,10 @@ body {
           flex: 50%;
 }
 
+#code1 {
+  margin-top: 15px;
+}
+
 textarea {
   width: calc(100% - 20px);
   margin-left: 10px;
