@@ -474,7 +474,7 @@ function processTurn(player) {
     try {
       i1 = player.interpreter.step()
     } catch (e) {
-      game.addEvent(player.name, "ERROR", ""+e)
+      game.addEvent(player.name, "ERROR", "ERROR: "+e)
       break;
     }
   }
