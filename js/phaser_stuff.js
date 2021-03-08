@@ -46,7 +46,8 @@ function create() {
 
   code2 = CodeMirror(document.getElementById("code2"), {
     lineNumbers: true,
-    mode: "javascript"
+    mode: "javascript",
+    readOnly: "nocursor"
   });
 
   // When the text field changes, mirror it to the end object 

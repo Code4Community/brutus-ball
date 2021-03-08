@@ -282,8 +282,8 @@ function collisionChecker(obj1, obj2) {
 }
 
 function makeGame(scene, c1, c2) {
-  var source1 = "throwFootball(\"right\")\nmove(\"up\")\nmove(\"up\")\nthrowFootball(\"right\")\nthrowFootball(\"right\")\nthrowFootball(\"right\")\nthrowFootball(\"right\")\nthrowFootball(\"right\")"
-  var source2 = "throwFootball(\"down\")\nmove(\"up\")\nmove(\"down\")"
+  var source1 = ""//"throwFootball(\"right\")\nmove(\"up\")\nmove(\"up\")\nthrowFootball(\"right\")\nthrowFootball(\"right\")\nthrowFootball(\"right\")\nthrowFootball(\"right\")\nthrowFootball(\"right\")"
+  var source2 = ""//"throwFootball(\"down\")\nmove(\"up\")\nmove(\"down\")"
   if (localStorage.getItem("code1")) {
     source1 = localStorage.getItem("code1")
   }
