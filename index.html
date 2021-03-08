@@ -32,15 +32,29 @@
   <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand" href="#">Brutus Ball</a>
     <div id="score">
-      <div>Ohio State: <span id="osuScore"></span></div>
-      <div>Michigan: <span id="michiganScore"></span></div>
+      <span>Ohio State: <span id="osuScore"></span></span>
+      &nbsp;
+      &nbsp;
+      <span>Michigan: <span id="michiganScore"></span></span>
     </div>
+    <div id="end-game-message"></div>
     <button type="button" id="run-btn" class="btn btn-md btn-success">Kickoff!</button>
   </nav>
 
   <div class="container-fluid">
     <div class="row">
-      <div class="col">
+      <div id="instructions" class="col-4">
+        <p><b>Instructions</b></p>
+        <p>Modify the code below to tell Brutus what to do. Run your code using the green "Kickoff!" button in the top
+          right corner of this page.</p>
+        <p><b>Action Functions</b></p>
+        <p>These functions perform an action in a particular direction. The directions are <span
+            class="code">'left'</span>, <span class="code">'right'</span>, <span class="code">'up'</span>, and <span
+            class="code">'down'</span>.</p>
+        <p><span class="code">move('left')</span> moves Brutus left.</p>
+        <p><span class="code">throwFootball('right')</span> throws a football to the right.</p>
+      </div>
+      <div class="col-8">
         <div id="winIndicator" style="display: none"></div>
         <div id="thecanvas"></div>
       </div>

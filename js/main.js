@@ -47,11 +47,14 @@ function Game(p) {
       console.log("PLAYER " + (winner + 1) + " WON");
       g.logStr += "PLAYER " + (winner + 1) + " WON\n"
       g.logStr += "\n------\n"
+
+      $('#score').hide()
       if (winner == 0) {
-        $('#score').text('Yay! OSU won!')
+        $('#end-game-message').text('Yay! Ohio State won!')
       } else {
-        $('#score').text('Oh no! Michigan won.')
+        $('#end-game-message').text('Oh no! Michigan won.')
       }
+      $('#end-game-message').show()
       //alert("PLAYER " + (winner + 1) + " WON")
     }
     // Stop interpreting, reset for next time.
@@ -321,9 +324,10 @@ function runSimulation(scene) {
 
   $('#actions').empty();
 
+  $("#end-game-message").hide()
   $("#osuScore").text("0")
   $("#michiganScore").text("0")
-  $("#score").html('<div id="score"><div>Ohio State: <span id="osuScore"></span></div><div>Michigan: <span id="michiganScore"></span></div></div>')
+  $("#score").show()
 
   //var p1Code = "move(); log(testCondition()); turn(\"left\"); skip(); throwFootball(\"left\"); move()"
   //var p2Code = "throwFootball(\"down\"); turn(\"right\"); move(); move()"
