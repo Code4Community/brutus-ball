@@ -71,15 +71,10 @@
         <div class="textRow">
           <div class="dropdown">
             <b>Michigan</b>
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Computer Player Behavior
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <button class="dropdown-item" onclick="changeTemplate('circles')">Move in a Square, forever</button>
-              <button class="dropdown-item" onclick="changeTemplate('follow')">Follow the other player and throw at
-                them!</button>
-              <button class="dropdown-item" onclick="changeTemplate('shoot')">Repeatedly throw left</button>
+            <div class="btn-group mb-1" role="group" aria-label="Basic mixed styles example">
+              <button type="button" class="btn btn-success"  onclick="changeTemplate('circles')">Easy</button>
+              <button type="button" class="btn btn-warning" onclick="changeTemplate('shoot')">Medium</button>
+              <button type="button" class="btn btn-danger" onclick="changeTemplate('follow')">Hard</button>
             </div>
           </div>
           <div id="code2"></div>
