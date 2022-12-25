@@ -13,7 +13,7 @@ import circlesTemplate from "./templates/circles.js?raw";
 import followTemplate from "./templates/follow.js?raw";
 import shootTemplate from "./templates/shoot.js?raw";
 
-import { makeGame, runSimulation, g } from "./main.js";
+import { makeGame, runSimulation, game as g } from "./main.js";
 
 import "./css/style.css";
 
