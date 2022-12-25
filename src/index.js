@@ -1,6 +1,5 @@
 import Phaser from "phaser";
 import CodeMirror from "codemirror";
-import "codemirror/lib/codemirror.css";
 import "codemirror/mode/javascript/javascript.js";
 
 import playerImage from "../images/kid_friendly_player.png";
@@ -15,7 +14,11 @@ import shootTemplate from "./templates/shoot.js?raw";
 
 import { makeGame, runSimulation, game as g } from "./main.js";
 
+import "bootstrap/dist/css/bootstrap.css";
+import "codemirror/lib/codemirror.css";
 import "./css/style.css";
+
+import "@fontsource/staatliches";
 
 // Initialize Phaser Game Object
 var config = {

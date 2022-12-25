@@ -1,4 +1,6 @@
 import Interpreter from "js-interpreter";
+import { js_beautify } from "js-beautify";
+import $ from "jquery";
 
 let MAX_X = 725
 let MAX_Y = 325

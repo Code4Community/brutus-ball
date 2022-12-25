@@ -19,7 +19,11 @@
   },
   "homepage": "https://github.com/Code4Community/tanks#readme",
   "dependencies": {
+    "@fontsource/staatliches": "^4.5.9",
+    "bootstrap": "^4.5.3",
     "codemirror": "^5.49.2",
+    "jquery": "^3.5.1",
+    "js-beautify": "^1.10.2",
     "js-interpreter": "^4.0.0",
     "phaser": "^3.20.1",
     "vm-browserify": "^1.1.2"
