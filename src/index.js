@@ -13,7 +13,7 @@ import circlesTemplate from "./templates/circles.js?raw";
 import followTemplate from "./templates/follow.js?raw";
 import shootTemplate from "./templates/shoot.js?raw";
 
-import { makeGame, runSimulation } from "./main.js";
+import { makeGame, runSimulation, g } from "./main.js";
 
 import "./css/style.css";
 
@@ -81,8 +81,8 @@ function create() {
   });
 
   document.getElementById("easy-btn").onclick = makeTemplateChanger(code2, shootTemplate);
-  document.getElementById("medium-btn").onclick = makeTemplateChanger(code2, followTemplate);
-  document.getElementById("hard-btn").onclick = makeTemplateChanger(code2, circlesTemplate);
+  document.getElementById("medium-btn").onclick = makeTemplateChanger(code2, circlesTemplate);
+  document.getElementById("hard-btn").onclick = makeTemplateChanger(code2, followTemplate);
 
   makeGame(this, code1, code2);
 }
@@ -93,8 +93,8 @@ function makeTemplateChanger(editor, template) {
   };
 }
 
-function startStop(g) {
-  return function (e) {
+function startStop(scene) {
+  return function () {
     //var logo = g.physics.add.image(400, 100, 'logo');
     // tweenA = g.tweens.add({targets: [logo],  props: { x: 100, y: 100}, duration: 2000, ease: "Quart.easeOut"});
     // var particles = g.add.particles('red');
@@ -104,12 +104,11 @@ function startStop(g) {
     //   blendMode: 'ADD'
     // });
     // emitter.startFollow(logo);
-    if (game.turnTimer == null) {
+    if (g.turnTimer == null) {
       document.getElementById("run-btn").innerText = "STOP";
-      console.log(g);
-      runSimulation(g);
+      runSimulation(scene);
     } else {
-      game.manualStop();
+      g.manualStop();
       document.getElementById("run-btn").innerText = "Kickoff!";
     }
 

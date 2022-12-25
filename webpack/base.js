@@ -9,6 +9,11 @@ module.exports = {
   watchOptions: {
     ignored: ["**/.*"],
   },
+  resolve: {
+    fallback: {
+      "vm": require.resolve("vm-browserify")
+    }
+  },
   module: {
     rules: [
       {

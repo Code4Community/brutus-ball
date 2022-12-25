@@ -1,5 +1,10 @@
+import Interpreter from "js-interpreter";
+
 let MAX_X = 725
 let MAX_Y = 325
+
+var g;
+
 function Game(p) {
   this.players = []
   this.nextTurn = 0; // index of the next player to process turn
@@ -12,7 +17,7 @@ function Game(p) {
   this.roundID = 1
   this.eventCount = 1;
 
-  const g = this
+  g = this;
   this.processNextTurn = function () {
     if (processTurn(g.players[g.nextTurn])) {
       g.didSomethingThisIteration = true
@@ -62,6 +67,7 @@ function Game(p) {
   }
 
   this.manualStop = function () {
+    console.log("manualStop");
     window.clearInterval(g.turnTimer);
     g.turnTimer = null
     g.didSomethingThisIteration = false;
@@ -131,7 +137,7 @@ function Player(phaserGame, x, y, name, sprite) {
     this.y += dirArr[1] * 50
     this.fixBounds()
     this.faceDirection(direction)
-    tweenA = this.game.tweens.add({ targets: [this.sprite], props: { x: this.x, y: this.y }, duration: 500, ease: "Quart.easeOut" });
+    const tweenA = this.game.tweens.add({ targets: [this.sprite], props: { x: this.x, y: this.y }, duration: 500, ease: "Quart.easeOut" });
   }
 
   this.fixBounds = function () {
@@ -478,9 +484,9 @@ function processTurn(player) {
 
   console.log("Start turn: " + player.name);
   game.stopExecution = false
-  i1 = true;
+  let i1 = true;
 
-  counter = 100000
+  let counter = 100000
   while (i1 && !game.stopExecution && counter > 0) {
     counter -= 1
     try {
@@ -511,4 +517,4 @@ function processTurn(player) {
 
 //run();
 
-export default makeGame;
+export { makeGame, runSimulation, g };
