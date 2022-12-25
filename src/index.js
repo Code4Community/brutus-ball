@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import CodeMirror from "codemirror";
 import "codemirror/lib/codemirror.css";
+import "codemirror/mode/javascript/javascript.js";
 
 import playerImage from "../images/kid_friendly_player.png";
 import umichImage from "../images/block-m.png";
@@ -8,7 +9,11 @@ import snowballImage from "../images/football.gif";
 import particleImage from "../images/particle.png";
 import backgroundImage from "../images/yeehaw.png";
 
-import makeGame from "./main.js";
+import circlesTemplate from "./templates/circles.js?raw";
+import followTemplate from "./templates/follow.js?raw";
+import shootTemplate from "./templates/shoot.js?raw";
+
+import { makeGame, runSimulation } from "./main.js";
 
 import "./css/style.css";
 
@@ -64,26 +69,28 @@ function create() {
 
   // When the text field changes, mirror it to the end object 
   code1.on("change", () => {
-    let user = game.code1.getValue()
+    let user = code1.getValue();
     localStorage.setItem("code1", user);
     console.log("Player 1 Code Saved!");
   });
 
   code2.on("change", () => {
-    let user = game.code2.getValue()
+    let user = code2.getValue();
     localStorage.setItem("code2", user);
     console.log("Player 2 Code Saved!");
   });
 
+  document.getElementById("easy-btn").onclick = makeTemplateChanger(code2, shootTemplate);
+  document.getElementById("medium-btn").onclick = makeTemplateChanger(code2, followTemplate);
+  document.getElementById("hard-btn").onclick = makeTemplateChanger(code2, circlesTemplate);
+
   makeGame(this, code1, code2);
 }
 
-function changeTemplate(template) {
-  $.ajax("js/templates/" + template + ".js", { dataType: "text" }).done(function (data) {
-    code2.setValue(data);
-  }).fail(function (a, b, c) {
-    console.log(c);
-  })
+function makeTemplateChanger(editor, template) {
+  return () => {
+    editor.setValue(template);
+  };
 }
 
 function startStop(g) {
@@ -98,11 +105,12 @@ function startStop(g) {
     // });
     // emitter.startFollow(logo);
     if (game.turnTimer == null) {
-      document.getElementById("run-btn").innerText = "STOP"
+      document.getElementById("run-btn").innerText = "STOP";
+      console.log(g);
       runSimulation(g);
     } else {
-      game.manualStop()
-      document.getElementById("run-btn").innerText = "Kickoff!"
+      game.manualStop();
+      document.getElementById("run-btn").innerText = "Kickoff!";
     }
 
     // logo.setVelocity(100, 200);

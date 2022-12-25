@@ -318,7 +318,7 @@ function runSimulation(scene) {
   var p1Code = game.code1.getValue()
   var p2Code = game.code2.getValue()
 
-  for (player of game.players) {
+  for (const player of game.players) {
     player.clear()
   }
 
