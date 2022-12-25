@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Code4Community/tanks#readme",
   "dependencies": {
+    "codemirror": "^5.49.2",
     "phaser": "^3.20.1"
   },
   "devDependencies": {
