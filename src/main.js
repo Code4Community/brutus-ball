@@ -12,7 +12,7 @@ function Game(p) {
   this.roundID = 1
   this.eventCount = 1;
 
-  g = this
+  const g = this
   this.processNextTurn = function () {
     if (processTurn(g.players[g.nextTurn])) {
       g.didSomethingThisIteration = true
@@ -392,11 +392,11 @@ function runSimulation(scene) {
       }
 
       var getDirectionW = function() {
-        if (player.getDirection() = [-1.0, 0.0]) {
+        if (player.getDirection() == [-1.0, 0.0]) {
           return "left"
-        } else if (player.getDirection() = [1.0, 0.0]) {
+        } else if (player.getDirection() == [1.0, 0.0]) {
           return "right"
-        } else if (player.getDirection() = [0.0, 1.0]) {
+        } else if (player.getDirection() == [0.0, 1.0]) {
           return "up"
         } else {
           return "down"
@@ -405,11 +405,11 @@ function runSimulation(scene) {
 
       var getEnemyDirectionW = function() {
         let otherPlayer = game.players[0] == player ? game.players[1] : game.players[0];
-        if (otherPlayer.getDirection() = [-1.0, 0.0]) {
+        if (otherPlayer.getDirection() == [-1.0, 0.0]) {
           return "left"
-        } else if (otherPlayer.getDirection() = [1.0, 0.0]) {
+        } else if (otherPlayer.getDirection() == [1.0, 0.0]) {
           return "right"
-        } else if (otherPlayer.getDirection() = [0.0, 1.0]) {
+        } else if (otherPlayer.getDirection() == [0.0, 1.0]) {
           return "up"
         } else {
           return "down"
@@ -510,3 +510,5 @@ function processTurn(player) {
 }
 
 //run();
+
+export default makeGame;
