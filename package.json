@@ -21,7 +21,7 @@
   "dependencies": {
     "@fontsource/staatliches": "^4.5.9",
     "c4c-lib": "github:Code4Community/c4c-lib#0.2.0",
-    "codemirror": "^5.49.2",
+    "codemirror": "^5.58.2",
     "jquery": "^3.5.1",
     "js-beautify": "^1.10.2",
     "js-interpreter": "^4.0.0",
