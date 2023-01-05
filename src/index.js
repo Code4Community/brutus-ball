@@ -14,16 +14,16 @@ import shootTemplate from "./templates/shoot.js?raw";
 
 import { makeGame, runSimulation, game as g } from "./main.js";
 
-import "bootstrap/dist/css/bootstrap.css";
 import "codemirror/lib/codemirror.css";
 import "./css/style.css";
+import "c4c-lib/src/styles";
 
 import "@fontsource/staatliches";
 
 // Initialize Phaser Game Object
 var config = {
+  parent: document.getElementById("game"),
   type: Phaser.AUTO,
-  parent: "thecanvas",
   width: 768,
   height: 370,
 
@@ -57,7 +57,7 @@ function create() {
   let image = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'background');
   image.setScale(this.cameras.main.width / image.width, .4).setScrollFactor(0);
 
-  document.getElementById("run-btn").onclick = startStop(this)
+  document.getElementById("run-btn").onclick = startStop(this);
 
   code1 = CodeMirror(document.getElementById("code1"), {
     lineNumbers: true,

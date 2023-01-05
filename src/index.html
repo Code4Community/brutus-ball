@@ -8,59 +8,58 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-light bg-light">
-            <a class="navbar-brand" href="#">Brutus Ball</a>
-            <div id="score">
-                <span>Ohio State: <span id="osuScore"></span></span>
-                &nbsp;
-                &nbsp;
-                <span>Michigan: <span id="michiganScore"></span></span>
+        <nav class="c4c-navbar">
+            <div class="container d-flex flex-wrap justify-content-between">
+                <a class="nav navbar-brand">Brutus Ball</a>
+
+                <div class="nav">
+                    <div id="score">
+                        <span>Ohio State: <span id="osuScore"></span></span>
+                        &nbsp;
+                        &nbsp;
+                        <span>Michigan: <span id="michiganScore"></span></span>
+                    </div>
+                    <div id="end-game-message"></div>
+                </div>
+
+                <div class="nav">
+                    <button type="button" id="run-btn" class="btn btn-md btn-success">Kickoff!</button>
+                </div>
             </div>
-            <div id="end-game-message"></div>
-            <button type="button" id="run-btn" class="btn btn-md btn-success">Kickoff!</button>
         </nav>
 
-        <div class="container-fluid">
-            <div class="row">
-                <div id="instructions" class="col-4">
+        <div class="c4c-container">
+            <div class="c4c-row">
+                <div class="col align-self-center d-none d-xl-block">
                     <p><b>Instructions</b></p>
-                    <p>Modify the code below to tell Brutus what to do. Run your
-                        code using the green "Kickoff!" button in the top right
-                        corner of this page.</p>
+                    <p>Modify the code below to tell Brutus what to do. Run your code using the green "Kickoff!" button in the top right corner of this page.</p>
                     <p><b>Action Functions</b></p>
-                    <p>These functions perform an action in a particular
-                    direction. The directions are <span class="code">'left'</span>, <span class="code">'right'</span>, <span class="code">'up'</span>,
-                    and <span
-                                                                                                                                                                                                                  class="code">'down'</span>.</p>
+                    <p>These functions perform an action in a particular direction. The directions are <span class="code">'left'</span>, <span class="code">'right'</span>, <span class="code">'up'</span>, and <span class="code">'down'</span>.</p>
                     <p><span class="code">move('left')</span> moves Brutus left.</p>
                     <p><span class="code">throwFootball('right')</span> throws a football to the right.</p>
                 </div>
-                <div class="col-8">
-                    <div id="winIndicator" style="display: none"></div>
-                    <div id="thecanvas"></div>
-                </div>
+
+                <div class="c4c-game" id="game"></div>
             </div>
 
-            <div class="row" style="margin-top: 20px;">
-                <div class="col">
-                    <div class="textRow">
-                        <b>Ohio State</b>
-                        <div id="code1"></div>
-                    </div>
+            <div class="c4c-row">
+                <div class="c4c-col">
+                    <b>Ohio State</b>
+                    <div id="code1"></div>
                 </div>
-                <div class="col">
-                    <div class="textRow">
-                        <div class="dropdown">
-                            <b>Michigan</b>
-                            <div class="btn-group mb-1" role="group" aria-label="Basic mixed styles example">
-                                <button id="easy-btn" type="button" class="btn btn-success" >Easy</button>
-                                <button id="medium-btn" type="button" class="btn btn-warning">Medium</button>
-                                <button id="hard-btn" type="button" class="btn btn-danger">Hard</button>
-                            </div>
+
+                <div class="c4c-col">
+                    <div class="dropdown">
+                        <b>Michigan</b>
+                        <div class="btn-group mb-1" role="group" aria-label="Basic mixed styles example">
+                            <button id="easy-btn" type="button" class="btn btn-success" >Easy</button>
+                            <button id="medium-btn" type="button" class="btn btn-warning">Medium</button>
+                            <button id="hard-btn" type="button" class="btn btn-danger">Hard</button>
                         </div>
-                        <div id="code2"></div>
                     </div>
+                    <div id="code2"></div>
                 </div>
+
                 <div class="col">
                     <table class="table table-striped">
                         <thead>
